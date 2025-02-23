@@ -8,6 +8,7 @@ import (
 	"runtime"
 )
 
+// Path: A representation of a filepath.
 type Path struct {
 	Root      string
 	path      string
@@ -47,7 +48,8 @@ func (p *Path) Exists() (bool, error) {
 	if errors.Is(err, os.ErrNotExist) {
 		return false, err
 	} else if err != nil && fileInfo == nil {
-		// This is a little sloppy. Need to specifically handle other errors.
+		// This is a little sloppy, but for now it's fine.
+		// TODO: Specifically handle other errors.
 		return false, err
 	}
 	return true, nil
@@ -60,8 +62,7 @@ func (p *Path) Parent() *Path {
 	}
 }
 
-// FIXME: This is just causing an infinite loop because `parent := p.Parent()`
-// isn't assigning the next parent's parent in the next iteration.
+// FIXME: This is just causing an infinite loop because `parent := p.Parent()` isn't assigning the next parent's parent in the next iteration.
 func (p *Path) Parents() (parents []*Path) {
 	parent := p.Parent()
 	for {
