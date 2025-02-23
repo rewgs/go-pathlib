@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	path "github.com/rewgs/go-pathlib"
+	"github.com/rewgs/go-pathlib/path"
 	// "github.com/rewgs/go-pathlib/tests/utils"
 )
 
