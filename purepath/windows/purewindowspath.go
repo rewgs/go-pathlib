@@ -36,13 +36,11 @@ func NewFromSlice(pathsegments []string) *PureWindowsPath {
 
 // A string representing the drive letter or name, if any.
 func (p *PureWindowsPath) Drive() string {
-	if !unicode.IsLetter(p.path[0]) {
+	beginsWith, driveLetter := driveLetter(p.path)
+	if !beginsWith {
 		return ""
 	}
-	if p.path[1] != ":" || p.path[2] != "/" || p.path[2] != "\\" {
-		return ""
-	}
-	return p.path[:3]
+	return driveLetter
 }
 
 // A slice giving access to the path's various components.
@@ -50,7 +48,25 @@ func (p *PureWindowsPath) Parts() []string {
 	return strings.Split(p.path, separator)
 }
 
-// TODO:
 // A string representing the (local or global) root, if any.
 func (p *PureWindowsPath) Root() string {
+	beginsWith, _ := driveLetter(p.path)
+	if !beginsWith {
+		return ""
+	}
+	return separator
+}
+
+// Checks if a path begins with a drive letter, and returns it if true.
+func driveLetter(path string) (bool, string) {
+	if !unicode.IsLetter(rune(path[0])) {
+		return false, ""
+	}
+	if string(path[1]) != ":" {
+		return false, ""
+	}
+	if string(path[2]) != "/" || string(path[2]) != "\\" {
+		return false, ""
+	}
+	return true, path[:2]
 }
