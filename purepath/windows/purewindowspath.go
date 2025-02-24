@@ -34,6 +34,17 @@ func NewFromSlice(pathsegments []string) *PureWindowsPath {
 	}
 }
 
+func (p *PureWindowsPath) Anchor() string {
+	drive := p.Drive()
+	if drive != "" {
+		return drive + separator
+	}
+	if unicode.IsLetter(rune(p.path[0])) && (string(p.path[1]) == "/" || string(p.path[1]) == "\\") {
+		return p.path[:2]
+	}
+	return ""
+}
+
 // A string representing the drive letter or name, if any.
 func (p *PureWindowsPath) Drive() string {
 	beginsWith, driveLetter := driveLetter(p.path)
@@ -65,7 +76,7 @@ func driveLetter(path string) (bool, string) {
 	if string(path[1]) != ":" {
 		return false, ""
 	}
-	if string(path[2]) != "/" || string(path[2]) != "\\" {
+	if string(path[2]) != "/" && string(path[2]) != "\\" {
 		return false, ""
 	}
 	return true, path[:2]

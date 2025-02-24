@@ -33,6 +33,14 @@ func NewFromSlice(pathsegments []string) *PurePosixPath {
 	}
 }
 
+// The concatenation of the drive and root.
+func (p *PurePosixPath) Anchor() string {
+	if !strings.HasPrefix(p.path, separator) {
+		return ""
+	}
+	return separator
+}
+
 // A string representing the drive letter or name, if any.
 func (p *PurePosixPath) Drive() string {
 	return ""
