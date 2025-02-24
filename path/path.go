@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
+	// "path/filepath"
 	"runtime"
 )
 
@@ -55,31 +55,28 @@ func (p *Path) Exists() (bool, error) {
 	return true, nil
 }
 
-func (p *Path) Parent() *Path {
-	return &Path{
-		path:      filepath.Dir(p.path),
-		separator: p.separator,
-	}
-}
+// FIXME: This is just causing an infinite loop because `parent := p.Parent()`
+// isn't assigning the next parent's parent in the next iteration.
+// Will need to do this in purepath anyway. Leaving this here until that's
+// written as an example of what *not* to do ;)
+//
+// func (p *Path) Parents() (parents []*Path) {
+// 	parent := p.Parent()
+// 	for {
+// 		if parent.AsString() == p.Root {
+// 			parents = append(parents, parent)
+// 			return
+// 		}
+// 		parents = append(parents, parent)
+// 		parent = p.Parent()
+// 	}
+// }
 
-// FIXME: This is just causing an infinite loop because `parent := p.Parent()` isn't assigning the next parent's parent in the next iteration.
-func (p *Path) Parents() (parents []*Path) {
-	parent := p.Parent()
-	for {
-		if parent.AsString() == p.Root {
-			parents = append(parents, parent)
-			return
-		}
-		parents = append(parents, parent)
-		parent = p.Parent()
-	}
-}
-
-func (p *Path) PrintParents() {
-	for _, parent := range p.Parents() {
-		fmt.Println(parent.AsString())
-	}
-}
+// func (p *Path) PrintParents() {
+// 	for _, parent := range p.Parents() {
+// 		fmt.Println(parent.AsString())
+// 	}
+// }
 
 // TODO:
 // func  (p *Path) Resolve(strict bool) *Path {}

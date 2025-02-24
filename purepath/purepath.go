@@ -13,7 +13,9 @@ import (
 // A generic interfaces that represents the system's path flavour (instantiating
 // it creates either a PurePosixPath or PureWindowsPath).
 type PurePath interface {
+	Anchor() string
 	Drive() string
+	Parent() *PurePath
 	Parts() []string
 	Root() string
 }

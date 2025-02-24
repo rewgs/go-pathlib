@@ -2,6 +2,7 @@ package windows
 
 import (
 	"log"
+	"path"
 	"strings"
 	"unicode"
 )
@@ -34,6 +35,15 @@ func NewFromSlice(pathsegments []string) *PureWindowsPath {
 	}
 }
 
+func NewFromString(path string) *PureWindowsPath {
+	if len(path) == 0 {
+		log.Fatal("Cannot create path.")
+	}
+	return &PureWindowsPath{
+		path: path,
+	}
+}
+
 func (p *PureWindowsPath) Anchor() string {
 	drive := p.Drive()
 	if drive != "" {
@@ -52,6 +62,16 @@ func (p *PureWindowsPath) Drive() string {
 		return ""
 	}
 	return driveLetter
+}
+
+// TODO:
+// Account for the following at https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.parent
+// - "You cannot go past an anchor, or empty path."
+// - "Note: This is a purely lexical operation..."
+//
+// The logical parent of the path.
+func (p *PureWindowsPath) Parent() *PureWindowsPath {
+	return NewFromString(path.Dir(p.path))
 }
 
 // A slice giving access to the path's various components.
