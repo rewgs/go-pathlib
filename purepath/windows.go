@@ -1,4 +1,4 @@
-package windows
+package purepath
 
 import (
 	"log"
@@ -8,46 +8,46 @@ import (
 )
 
 const (
-	separator string = "\\"
+	windowsSeparator string = "\\"
 )
 
-type PureWindowsPath struct {
+type Windows struct {
 	path string
 }
 
 // Takes any number of strings, separated by commas.
-func New(pathsegments ...string) *PureWindowsPath {
+func NewWindows(pathsegments ...string) *Windows {
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return &PureWindowsPath{
-		path: strings.Join(pathsegments, separator),
+	return &Windows{
+		path: strings.Join(pathsegments, windowsSeparator),
 	}
 }
 
 // Takes a slice of strings.
-func NewFromSlice(pathsegments []string) *PureWindowsPath {
+func NewWindowsFromSlice(pathsegments []string) *Windows {
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return &PureWindowsPath{
-		path: strings.Join(pathsegments, separator),
+	return &Windows{
+		path: strings.Join(pathsegments, windowsSeparator),
 	}
 }
 
-func NewFromString(path string) *PureWindowsPath {
+func NewWindowsFromString(path string) *Windows {
 	if len(path) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return &PureWindowsPath{
+	return &Windows{
 		path: path,
 	}
 }
 
-func (p *PureWindowsPath) Anchor() string {
+func (p *Windows) Anchor() string {
 	drive := p.Drive()
 	if drive != "" {
-		return drive + separator
+		return drive + windowsSeparator
 	}
 	if unicode.IsLetter(rune(p.path[0])) && (string(p.path[1]) == "/" || string(p.path[1]) == "\\") {
 		return p.path[:2]
@@ -56,7 +56,7 @@ func (p *PureWindowsPath) Anchor() string {
 }
 
 // A string representing the drive letter or name, if any.
-func (p *PureWindowsPath) Drive() string {
+func (p *Windows) Drive() string {
 	beginsWith, driveLetter := driveLetter(p.path)
 	if !beginsWith {
 		return ""
@@ -70,22 +70,22 @@ func (p *PureWindowsPath) Drive() string {
 // - "Note: This is a purely lexical operation..."
 //
 // The logical parent of the path.
-func (p *PureWindowsPath) Parent() *PureWindowsPath {
-	return NewFromString(path.Dir(p.path))
+func (p *Windows) Parent() PurePath {
+	return NewWindowsFromString(path.Dir(p.path))
 }
 
 // A slice giving access to the path's various components.
-func (p *PureWindowsPath) Parts() []string {
-	return strings.Split(p.path, separator)
+func (p *Windows) Parts() []string {
+	return strings.Split(p.path, windowsSeparator)
 }
 
 // A string representing the (local or global) root, if any.
-func (p *PureWindowsPath) Root() string {
+func (p *Windows) Root() string {
 	beginsWith, _ := driveLetter(p.path)
 	if !beginsWith {
 		return ""
 	}
-	return separator
+	return windowsSeparator
 }
 
 // Checks if a path begins with a drive letter, and returns it if true.

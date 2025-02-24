@@ -2,12 +2,7 @@
 package purepath
 
 import (
-	"fmt"
-	// "log"
 	"runtime"
-
-	"github.com/rewgs/go-pathlib/purepath/posix"
-	"github.com/rewgs/go-pathlib/purepath/windows"
 )
 
 // A generic interfaces that represents the system's path flavour (instantiating
@@ -15,7 +10,7 @@ import (
 type PurePath interface {
 	Anchor() string
 	Drive() string
-	Parent() *PurePath
+	Parent() PurePath
 	Parts() []string
 	Root() string
 }
@@ -25,13 +20,13 @@ type PurePath interface {
 func New(pathsegments ...string) (PurePath, error) {
 	switch platform := runtime.GOOS; platform {
 	case "darwin":
-		return posix.NewFromSlice(pathsegments), nil
+		return NewPosixFromSlice(pathsegments), nil
 	case "linux":
-		return posix.NewFromSlice(pathsegments), nil
+		return NewPosixFromSlice(pathsegments), nil
 	case "posix":
-		return posix.NewFromSlice(pathsegments), fmt.Errorf("NOTE: %s has not yet been implemented or tested. Proceed with caution.", platform)
+		return NewPosixFromSlice(pathsegments), nil
 	case "windows":
-		return windows.NewFromSlice(pathsegments), nil
+		return NewWindowsFromSlice(pathsegments), nil
 	default:
 		panic(1)
 	}

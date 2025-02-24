@@ -1,4 +1,4 @@
-package posix
+package purepath
 
 import (
 	"log"
@@ -7,52 +7,52 @@ import (
 )
 
 const (
-	separator string = "/"
+	posixSeparator string = "/"
 )
 
-type PurePosixPath struct {
+type Posix struct {
 	path string
 }
 
 // Takes any number of strings, separated by commas.
-func New(pathsegments ...string) *PurePosixPath {
+func NewPosix(pathsegments ...string) *Posix {
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return &PurePosixPath{
-		path: strings.Join(pathsegments, separator),
+	return &Posix{
+		path: strings.Join(pathsegments, posixSeparator),
 	}
 }
 
 // Takes a slice of strings.
-func NewFromSlice(pathsegments []string) *PurePosixPath {
+func NewPosixFromSlice(pathsegments []string) *Posix {
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return &PurePosixPath{
-		path: strings.Join(pathsegments, separator),
+	return &Posix{
+		path: strings.Join(pathsegments, posixSeparator),
 	}
 }
 
-func NewFromString(path string) *PurePosixPath {
+func NewPosixFromString(path string) *Posix {
 	if len(path) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return &PurePosixPath{
+	return &Posix{
 		path: path,
 	}
 }
 
 // The concatenation of the drive and root.
-func (p *PurePosixPath) Anchor() string {
-	if !strings.HasPrefix(p.path, separator) {
+func (p *Posix) Anchor() string {
+	if !strings.HasPrefix(p.path, posixSeparator) {
 		return ""
 	}
-	return separator
+	return posixSeparator
 }
 
 // A string representing the drive letter or name, if any.
-func (p *PurePosixPath) Drive() string {
+func (p *Posix) Drive() string {
 	return ""
 }
 
@@ -62,19 +62,19 @@ func (p *PurePosixPath) Drive() string {
 // - "Note: This is a purely lexical operation..."
 //
 // The logical parent of the path.
-func (p *PurePosixPath) Parent() *PurePosixPath {
-	return NewFromString(path.Dir(p.path))
+func (p *Posix) Parent() PurePath {
+	return NewPosixFromString(path.Dir(p.path))
 }
 
 // A slice giving access to the path's various components.
-func (p *PurePosixPath) Parts() []string {
-	return strings.Split(p.path, separator)
+func (p *Posix) Parts() []string {
+	return strings.Split(p.path, posixSeparator)
 }
 
 // A string representing the (local or global) root, if any.
-func (p *PurePosixPath) Root() string {
-	if !strings.HasPrefix(p.path, separator) {
+func (p *Posix) Root() string {
+	if !strings.HasPrefix(p.path, posixSeparator) {
 		return ""
 	}
-	return separator
+	return posixSeparator
 }
