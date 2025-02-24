@@ -37,13 +37,13 @@ type PurePath interface {
 func New(pathsegments ...string) (PurePath, error) {
 	switch platform := runtime.GOOS; platform {
 	case "darwin":
-		return NewPosixFromSlice(pathsegments), nil
+		return NewPurePosixPath(pathsegments...), nil
 	case "linux":
-		return NewPosixFromSlice(pathsegments), nil
+		return NewPurePosixPath(pathsegments...), nil
 	case "posix":
-		return NewPosixFromSlice(pathsegments), nil
+		return NewPurePosixPath(pathsegments...), nil
 	case "windows":
-		return NewWindowsFromSlice(pathsegments), nil
+		return NewPureWindowsPath(pathsegments...), nil
 	default:
 		panic(1)
 	}

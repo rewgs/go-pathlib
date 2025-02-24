@@ -5,49 +5,29 @@ import (
 	"path" // TODO: Test if this works with "\\" paths.
 	"strings"
 	"unicode"
+
+	"github.com/rewgs/go-pathlib/internal/posix"
+	"github.com/rewgs/go-pathlib/internal/windows"
 )
 
-const (
-	windowsSeparator string = "\\"
-)
-
-type Windows struct {
+type PureWindowsPath struct {
 	path string
 }
 
 // Takes any number of strings, separated by commas.
-func NewWindows(pathsegments ...string) *Windows {
+func NewPureWindowsPath(pathsegments ...string) *PureWindowsPath {
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return &Windows{
-		path: strings.Join(pathsegments, windowsSeparator),
+	return &PureWindowsPath{
+		path: strings.Join(pathsegments, windows.Separator),
 	}
 }
 
-// Takes a slice of strings.
-func NewWindowsFromSlice(pathsegments []string) *Windows {
-	if len(pathsegments) == 0 {
-		log.Fatal("Cannot create path.")
-	}
-	return &Windows{
-		path: strings.Join(pathsegments, windowsSeparator),
-	}
-}
-
-func NewWindowsFromString(path string) *Windows {
-	if len(path) == 0 {
-		log.Fatal("Cannot create path.")
-	}
-	return &Windows{
-		path: path,
-	}
-}
-
-func (p *Windows) Anchor() string {
+func (p *PureWindowsPath) Anchor() string {
 	drive := p.Drive()
 	if drive != "" {
-		return drive + windowsSeparator
+		return drive + windows.Separator
 	}
 	if unicode.IsLetter(rune(p.path[0])) && (string(p.path[1]) == "/" || string(p.path[1]) == "\\") {
 		return p.path[:2]
@@ -55,12 +35,12 @@ func (p *Windows) Anchor() string {
 	return ""
 }
 
-func (p *Windows) AsPosix() string {
-	return strings.ReplaceAll(p.path, windowsSeparator, posixSeparator)
+func (p *PureWindowsPath) AsPosix() string {
+	return strings.ReplaceAll(p.path, windows.Separator, posix.Separator)
 }
 
 // A string representing the drive letter or name, if any.
-func (p *Windows) Drive() string {
+func (p *PureWindowsPath) Drive() string {
 	beginsWith, driveLetter := driveLetter(p.path)
 	if !beginsWith {
 		return ""
@@ -68,7 +48,7 @@ func (p *Windows) Drive() string {
 	return driveLetter
 }
 
-func (p *Windows) Name() string {
+func (p *PureWindowsPath) Name() string {
 	name := path.Base(p.path)
 	if name == "." || name == "/" {
 		log.Fatalf("Could not get name from %s", p.path)
@@ -82,25 +62,25 @@ func (p *Windows) Name() string {
 // - "Note: This is a purely lexical operation..."
 //
 // The logical parent of the path.
-func (p *Windows) Parent() PurePath {
-	return NewWindowsFromString(path.Dir(p.path))
+func (p *PureWindowsPath) Parent() PurePath {
+	return NewPureWindowsPath(path.Dir(p.path))
 }
 
 // A slice giving access to the path's various components.
-func (p *Windows) Parts() []string {
-	return strings.Split(p.path, windowsSeparator)
+func (p *PureWindowsPath) Parts() []string {
+	return strings.Split(p.path, windows.Separator)
 }
 
 // A string representing the (local or global) root, if any.
-func (p *Windows) Root() string {
+func (p *PureWindowsPath) Root() string {
 	beginsWith, _ := driveLetter(p.path)
 	if !beginsWith {
 		return ""
 	}
-	return windowsSeparator
+	return windows.Separator
 }
 
-func (p *Windows) Stem() string {
+func (p *PureWindowsPath) Stem() string {
 	name := p.Name()
 	ext := p.Suffix()
 
@@ -111,7 +91,7 @@ func (p *Windows) Stem() string {
 	return before
 }
 
-func (p *Windows) Suffix() string {
+func (p *PureWindowsPath) Suffix() string {
 	return path.Ext(p.path)
 }
 
