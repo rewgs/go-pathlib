@@ -2,7 +2,7 @@ package purepath
 
 import (
 	"log"
-	"path"
+	"path" // TODO: Test if this works with "\\" paths.
 	"strings"
 	"unicode"
 )
@@ -55,6 +55,10 @@ func (p *Windows) Anchor() string {
 	return ""
 }
 
+func (p *Windows) AsPosix() string {
+	return strings.ReplaceAll(p.path, windowsSeparator, posixSeparator)
+}
+
 // A string representing the drive letter or name, if any.
 func (p *Windows) Drive() string {
 	beginsWith, driveLetter := driveLetter(p.path)
@@ -62,6 +66,14 @@ func (p *Windows) Drive() string {
 		return ""
 	}
 	return driveLetter
+}
+
+func (p *Windows) Name() string {
+	name := path.Base(p.path)
+	if name == "." || name == "/" {
+		log.Fatalf("Could not get name from %s", p.path)
+	}
+	return name
 }
 
 // TODO:
@@ -86,6 +98,21 @@ func (p *Windows) Root() string {
 		return ""
 	}
 	return windowsSeparator
+}
+
+func (p *Windows) Stem() string {
+	name := p.Name()
+	ext := p.Suffix()
+
+	before, found := strings.CutSuffix(name, ext)
+	if !found {
+		log.Fatalf("Could not find %s in %s", ext, name)
+	}
+	return before
+}
+
+func (p *Windows) Suffix() string {
+	return path.Ext(p.path)
 }
 
 // Checks if a path begins with a drive letter, and returns it if true.

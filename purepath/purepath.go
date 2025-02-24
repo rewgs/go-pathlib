@@ -10,9 +10,26 @@ import (
 type PurePath interface {
 	Anchor() string
 	Drive() string
+	Name() string
 	Parent() PurePath
 	Parts() []string
 	Root() string
+	Stem() string
+	Suffix() string
+	// TODO:
+	// FullMatch() bool
+	// IsAbsolute() bool
+	// IsRelativeTo() bool
+	// IsReserved() bool
+	// JoinPath() PurePath
+	// Match() bool
+	// Parents() []PurePath
+	// RelativeTo() PurePath
+	// Suffixes() []string
+	// WithName() PurePath
+	// WithSegments() PurePath
+	// WithStem() PurePath
+	// WithSuffix() PurePath
 }
 
 // Takes any number of strings, separated by commas.

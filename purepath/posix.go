@@ -56,6 +56,14 @@ func (p *Posix) Drive() string {
 	return ""
 }
 
+func (p *Posix) Name() string {
+	name := path.Base(p.path)
+	if name == "." || name == "/" {
+		log.Fatalf("Could not get name from %s", p.path)
+	}
+	return name
+}
+
 // TODO:
 // Account for the following at https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.parent
 // - "You cannot go past an anchor, or empty path."
@@ -77,4 +85,19 @@ func (p *Posix) Root() string {
 		return ""
 	}
 	return posixSeparator
+}
+
+func (p *Posix) Stem() string {
+	name := p.Name()
+	ext := p.Suffix()
+
+	before, found := strings.CutSuffix(name, ext)
+	if !found {
+		log.Fatalf("Could not find %s in %s", ext, name)
+	}
+	return before
+}
+
+func (p *Posix) Suffix() string {
+	return path.Ext(p.path)
 }
