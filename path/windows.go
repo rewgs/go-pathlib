@@ -1,6 +1,7 @@
 package path
 
 import (
+	"log"
 	"strings"
 
 	"github.com/rewgs/go-pathlib/internal/windows"
@@ -14,6 +15,10 @@ type WindowsPath struct {
 
 // Takes any number of strings, separated by commas.
 func NewWindowsPath(pathsegments ...string) *WindowsPath {
+	if platform != "windows" {
+		log.Panic()
+	}
+
 	return &WindowsPath{
 		path{
 			path: strings.Join(pathsegments, windows.Separator),
@@ -21,3 +26,6 @@ func NewWindowsPath(pathsegments ...string) *WindowsPath {
 		purepath.NewPureWindowsPath(pathsegments...),
 	}
 }
+
+// TODO:
+// func IsJunction() bool {}

@@ -1,6 +1,7 @@
 package path
 
 import (
+	"log"
 	"strings"
 
 	"github.com/rewgs/go-pathlib/internal/posix"
@@ -14,6 +15,10 @@ type PosixPath struct {
 
 // Takes any number of strings, separated by commas.
 func NewPosixPath(pathsegments ...string) *PosixPath {
+	if platform == "windows" {
+		log.Panic()
+	}
+
 	return &PosixPath{
 		path{
 			path: strings.Join(pathsegments, posix.Separator),
