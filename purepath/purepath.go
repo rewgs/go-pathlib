@@ -10,6 +10,7 @@ import (
 type PurePath interface {
 	Anchor() string
 	Drive() string
+	IsAbsolute() bool
 	Name() string
 	Parent() PurePath
 	Parts() []string
@@ -18,7 +19,6 @@ type PurePath interface {
 	Suffix() string
 	// TODO:
 	// FullMatch() bool
-	// IsAbsolute() bool
 	// IsRelativeTo() bool
 	// IsReserved() bool
 	// JoinPath() PurePath

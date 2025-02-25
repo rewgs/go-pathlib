@@ -35,6 +35,13 @@ func (p *PurePosixPath) Drive() string {
 	return ""
 }
 
+func (p *PurePosixPath) IsAbsolute() bool {
+	if p.Root() != "" {
+		return true
+	}
+	return false
+}
+
 func (p *PurePosixPath) Name() string {
 	name := path.Base(p.path)
 	if name == "." || name == "/" {

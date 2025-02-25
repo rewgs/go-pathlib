@@ -56,6 +56,13 @@ func (p *PureWindowsPath) Name() string {
 	return name
 }
 
+func (p *PureWindowsPath) IsAbsolute() bool {
+	if p.Drive() != "" && p.Root() != "" {
+		return true
+	}
+	return false
+}
+
 // TODO:
 // Account for the following at https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.parent
 // - "You cannot go past an anchor, or empty path."
