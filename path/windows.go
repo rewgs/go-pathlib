@@ -9,9 +9,8 @@ import (
 )
 
 type WindowsPath struct {
-	path
-	// *purepath.PureWindowsPath
-	purepath.PureWindowsPath
+	Shared
+	purepath.PurePath
 }
 
 // Takes any number of strings, separated by commas.
@@ -20,11 +19,13 @@ func NewWindowsPath(pathsegments ...string) WindowsPath {
 		log.Panic()
 	}
 
+	path := strings.Join(pathsegments, windows.Separator)
+
 	return WindowsPath{
-		path{
-			path: strings.Join(pathsegments, windows.Separator),
+		Shared{Path: path},
+		purepath.PureWindowsPath{
+			purepath.Shared{Path: path},
 		},
-		purepath.NewPureWindowsPath(pathsegments...),
 	}
 }
 

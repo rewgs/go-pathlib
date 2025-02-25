@@ -2,6 +2,7 @@ package path
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	// "os/user"
 	"runtime"
@@ -55,18 +56,18 @@ type Path interface {
 	// WriteText() error // will require a Writer
 }
 
-type path struct {
-	path string
+type Shared struct {
+	Path string
 }
 
 // TODO:
 // - `followSymlinks` argument.
 // - Check for permission-related errors in cases where file exists.
 //
-// Return true if the path points to an existing file or directory.
+// Returns true if the path points to an existing file or directory.
 // This function normally follows symlinks; to check if a symlink exists, add the argument follow_symlinks=False
-func (p path) Exists() (bool, error) {
-	fileInfo, err := os.Stat(p.path)
+func (p Shared) Exists() (bool, error) {
+	fileInfo, err := os.Stat(p.Path)
 	if errors.Is(err, os.ErrNotExist) {
 		return false, err
 	} else if err != nil && fileInfo == nil {

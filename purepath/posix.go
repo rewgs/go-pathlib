@@ -9,7 +9,7 @@ import (
 )
 
 type PurePosixPath struct {
-	purePath
+	Shared
 }
 
 func NewPurePosixPath(pathsegments ...string) PurePosixPath {
@@ -17,15 +17,15 @@ func NewPurePosixPath(pathsegments ...string) PurePosixPath {
 		log.Fatal("Cannot create path.")
 	}
 	return PurePosixPath{
-		purePath{
-			path: strings.Join(pathsegments, posix.Separator),
+		Shared{
+			Path: strings.Join(pathsegments, posix.Separator),
 		},
 	}
 }
 
 // The concatenation of the drive and root.
 func (p PurePosixPath) Anchor() string {
-	if !strings.HasPrefix(p.path, posix.Separator) {
+	if !strings.HasPrefix(p.Path, posix.Separator) {
 		return ""
 	}
 	return posix.Separator
@@ -50,17 +50,17 @@ func (p PurePosixPath) IsAbsolute() bool {
 //
 // The logical parent of the path.
 func (p PurePosixPath) Parent() PurePath {
-	return NewPurePosixPath(path.Dir(p.path))
+	return NewPurePosixPath(path.Dir(p.Path))
 }
 
 // A slice giving access to the path's various components.
 func (p PurePosixPath) Parts() []string {
-	return strings.Split(p.path, posix.Separator)
+	return strings.Split(p.Path, posix.Separator)
 }
 
 // A string representing the (local or global) root, if any.
 func (p PurePosixPath) Root() string {
-	if !strings.HasPrefix(p.path, posix.Separator) {
+	if !strings.HasPrefix(p.Path, posix.Separator) {
 		return ""
 	}
 	return posix.Separator

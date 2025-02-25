@@ -46,23 +46,23 @@ type PurePath interface {
 // Any methods that are shared between both flavors are implemented via this
 // struct, whereas any methods that differ between flavors are implemented via
 // their respective struct.
-type purePath struct {
-	path string
+type Shared struct {
+	Path string
 }
 
-func (p purePath) AsString() string {
-	return p.path
+func (p Shared) AsString() string {
+	return p.Path
 }
 
-func (p purePath) Name() string {
-	name := path.Base(p.path)
+func (p Shared) Name() string {
+	name := path.Base(p.Path)
 	if name == "." || name == "/" {
-		log.Fatalf("Could not get name from %s", p.path)
+		log.Fatalf("Could not get name from %s", p.Path)
 	}
 	return name
 }
 
-func (p purePath) Stem() string {
+func (p Shared) Stem() string {
 	name := p.Name()
 	ext := p.Suffix()
 
@@ -73,8 +73,8 @@ func (p purePath) Stem() string {
 	return before
 }
 
-func (p purePath) Suffix() string {
-	return path.Ext(p.path)
+func (p Shared) Suffix() string {
+	return path.Ext(p.Path)
 }
 
 // Takes any number of strings, separated by commas.
