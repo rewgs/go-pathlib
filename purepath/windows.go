@@ -10,17 +10,32 @@ import (
 	"github.com/rewgs/go-pathlib/internal/windows"
 )
 
-type PureWindowsPath struct {
-	path string
-}
+// type PureWindowsPath struct {
+// 	path string
+// }
 
 // Takes any number of strings, separated by commas.
+// func NewPureWindowsPath(pathsegments ...string) *PureWindowsPath {
+// 	if len(pathsegments) == 0 {
+// 		log.Fatal("Cannot create path.")
+// 	}
+// 	return &PureWindowsPath{
+// 		path: strings.Join(pathsegments, windows.Separator),
+// 	}
+// }
+
+type PureWindowsPath struct {
+	purePath
+}
+
 func NewPureWindowsPath(pathsegments ...string) *PureWindowsPath {
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
 	return &PureWindowsPath{
-		path: strings.Join(pathsegments, windows.Separator),
+		purePath{
+			path: strings.Join(pathsegments, windows.Separator),
+		},
 	}
 }
 
@@ -48,13 +63,13 @@ func (p *PureWindowsPath) Drive() string {
 	return driveLetter
 }
 
-func (p *PureWindowsPath) Name() string {
-	name := path.Base(p.path)
-	if name == "." || name == "/" {
-		log.Fatalf("Could not get name from %s", p.path)
-	}
-	return name
-}
+// func (p *PureWindowsPath) Name() string {
+// 	name := path.Base(p.path)
+// 	if name == "." || name == "/" {
+// 		log.Fatalf("Could not get name from %s", p.path)
+// 	}
+// 	return name
+// }
 
 func (p *PureWindowsPath) IsAbsolute() bool {
 	if p.Drive() != "" && p.Root() != "" {
@@ -87,20 +102,20 @@ func (p *PureWindowsPath) Root() string {
 	return windows.Separator
 }
 
-func (p *PureWindowsPath) Stem() string {
-	name := p.Name()
-	ext := p.Suffix()
+// func (p *PureWindowsPath) Stem() string {
+// 	name := p.Name()
+// 	ext := p.Suffix()
+//
+// 	before, found := strings.CutSuffix(name, ext)
+// 	if !found {
+// 		log.Fatalf("Could not find %s in %s", ext, name)
+// 	}
+// 	return before
+// }
 
-	before, found := strings.CutSuffix(name, ext)
-	if !found {
-		log.Fatalf("Could not find %s in %s", ext, name)
-	}
-	return before
-}
-
-func (p *PureWindowsPath) Suffix() string {
-	return path.Ext(p.path)
-}
+// func (p *PureWindowsPath) Suffix() string {
+// 	return path.Ext(p.path)
+// }
 
 // Checks if a path begins with a drive letter, and returns it if true.
 func driveLetter(path string) (bool, string) {
