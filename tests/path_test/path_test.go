@@ -17,3 +17,17 @@ func TestPath(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func TestPathAsString(t *testing.T) {
+	testsPath := utils.GetTestsPath()
+	utils.MakeDir(testsPath)
+
+	path, err := path.New(testsPath)
+	if err != nil {
+		t.Error(err)
+	}
+
+	if path.AsString() != testsPath {
+		t.Errorf("TestingPathAsString: wanted: %s; got: %s\n", testsPath, path.AsString())
+	}
+}

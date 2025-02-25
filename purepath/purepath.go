@@ -38,7 +38,7 @@ type PurePath interface {
 	// WithStem() PurePath
 	// WithSuffix() PurePath
 
-	// added as part of this library:
+	// added to purepath for go-pathlib:
 	AsString() string
 }
 

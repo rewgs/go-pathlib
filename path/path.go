@@ -63,11 +63,14 @@ type Path interface {
 	Drive() string
 	IsAbsolute() bool
 	Name() string
-	Parent() purepath.PurePath // I wonder if this should return a Path instead?
+	Parent() purepath.PurePath
 	Parts() []string
 	Root() string
 	Stem() string
 	Suffix() string
+
+	// added to purepath for go-pathlib:
+	AsString() string
 }
 
 type Shared struct {
