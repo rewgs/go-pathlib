@@ -8,20 +8,6 @@ import (
 	"github.com/rewgs/go-pathlib/internal/posix"
 )
 
-// type PurePosixPath struct {
-// 	path string
-// }
-
-// Takes any number of strings, separated by commas.
-// func NewPurePosixPath(pathsegments ...string) *PurePosixPath {
-// 	if len(pathsegments) == 0 {
-// 		log.Fatal("Cannot create path.")
-// 	}
-// 	return &PurePosixPath{
-// 		path: strings.Join(pathsegments, posix.Separator),
-// 	}
-// }
-
 type PurePosixPath struct {
 	purePath
 }
@@ -57,14 +43,6 @@ func (p *PurePosixPath) IsAbsolute() bool {
 	return false
 }
 
-// func (p *PurePosixPath) Name() string {
-// 	name := path.Base(p.path)
-// 	if name == "." || name == "/" {
-// 		log.Fatalf("Could not get name from %s", p.path)
-// 	}
-// 	return name
-// }
-
 // TODO:
 // Account for the following at https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.parent
 // - "You cannot go past an anchor, or empty path."
@@ -87,18 +65,3 @@ func (p *PurePosixPath) Root() string {
 	}
 	return posix.Separator
 }
-
-// func (p *PurePosixPath) Stem() string {
-// 	name := p.Name()
-// 	ext := p.Suffix()
-//
-// 	before, found := strings.CutSuffix(name, ext)
-// 	if !found {
-// 		log.Fatalf("Could not find %s in %s", ext, name)
-// 	}
-// 	return before
-// }
-
-// func (p *PurePosixPath) Suffix() string {
-// 	return path.Ext(p.path)
-// }

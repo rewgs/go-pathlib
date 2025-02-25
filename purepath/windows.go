@@ -10,20 +10,6 @@ import (
 	"github.com/rewgs/go-pathlib/internal/windows"
 )
 
-// type PureWindowsPath struct {
-// 	path string
-// }
-
-// Takes any number of strings, separated by commas.
-// func NewPureWindowsPath(pathsegments ...string) *PureWindowsPath {
-// 	if len(pathsegments) == 0 {
-// 		log.Fatal("Cannot create path.")
-// 	}
-// 	return &PureWindowsPath{
-// 		path: strings.Join(pathsegments, windows.Separator),
-// 	}
-// }
-
 type PureWindowsPath struct {
 	purePath
 }
@@ -56,20 +42,12 @@ func (p *PureWindowsPath) AsPosix() string {
 
 // A string representing the drive letter or name, if any.
 func (p *PureWindowsPath) Drive() string {
-	beginsWith, driveLetter := driveLetter(p.path)
+	beginsWith, driveLetter := windows.GetDriveLetter(p.path)
 	if !beginsWith {
 		return ""
 	}
 	return driveLetter
 }
-
-// func (p *PureWindowsPath) Name() string {
-// 	name := path.Base(p.path)
-// 	if name == "." || name == "/" {
-// 		log.Fatalf("Could not get name from %s", p.path)
-// 	}
-// 	return name
-// }
 
 func (p *PureWindowsPath) IsAbsolute() bool {
 	if p.Drive() != "" && p.Root() != "" {
@@ -95,38 +73,9 @@ func (p *PureWindowsPath) Parts() []string {
 
 // A string representing the (local or global) root, if any.
 func (p *PureWindowsPath) Root() string {
-	beginsWith, _ := driveLetter(p.path)
+	beginsWith, _ := windows.GetDriveLetter(p.path)
 	if !beginsWith {
 		return ""
 	}
 	return windows.Separator
-}
-
-// func (p *PureWindowsPath) Stem() string {
-// 	name := p.Name()
-// 	ext := p.Suffix()
-//
-// 	before, found := strings.CutSuffix(name, ext)
-// 	if !found {
-// 		log.Fatalf("Could not find %s in %s", ext, name)
-// 	}
-// 	return before
-// }
-
-// func (p *PureWindowsPath) Suffix() string {
-// 	return path.Ext(p.path)
-// }
-
-// Checks if a path begins with a drive letter, and returns it if true.
-func driveLetter(path string) (bool, string) {
-	if !unicode.IsLetter(rune(path[0])) {
-		return false, ""
-	}
-	if string(path[1]) != ":" {
-		return false, ""
-	}
-	if string(path[2]) != "/" && string(path[2]) != "\\" {
-		return false, ""
-	}
-	return true, path[:2]
 }
