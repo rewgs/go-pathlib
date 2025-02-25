@@ -1,6 +1,6 @@
 # go-pathlib
 
-Like Python's [`pathlib`](https://docs.python.org/3/library/pathlib.html#), but for Go.
+An implementation of Python's [`pathlib`](https://docs.python.org/3/library/pathlib.html#) for Go.
 
 | `pathlib` function                                                                    | `go-pathlib` name | status        |
 | :--------------------                                                                 | :---------------- | :-------:     |
