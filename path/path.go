@@ -65,7 +65,7 @@ type path struct {
 //
 // Return true if the path points to an existing file or directory.
 // This function normally follows symlinks; to check if a symlink exists, add the argument follow_symlinks=False
-func (p *path) Exists() (bool, error) {
+func (p path) Exists() (bool, error) {
 	fileInfo, err := os.Stat(p.path)
 	if errors.Is(err, os.ErrNotExist) {
 		return false, err
@@ -86,7 +86,7 @@ func New(pathsegments ...string) (Path, error) {
 	case "linux":
 		return NewPosixPath(pathsegments...), nil
 	case "posix":
-		return NewPosixPath(pathsegments...), nil
+		return NewPosixPath(pathsegments...), fmt.Errorf("Operating system not yet implemented or tested: %s\nProceed with caution.\n", platform)
 	case "windows":
 		return NewWindowsPath(pathsegments...), nil
 	default:

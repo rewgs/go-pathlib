@@ -10,16 +10,17 @@ import (
 
 type WindowsPath struct {
 	path
-	*purepath.PureWindowsPath
+	// *purepath.PureWindowsPath
+	purepath.PureWindowsPath
 }
 
 // Takes any number of strings, separated by commas.
-func NewWindowsPath(pathsegments ...string) *WindowsPath {
+func NewWindowsPath(pathsegments ...string) WindowsPath {
 	if platform != "windows" {
 		log.Panic()
 	}
 
-	return &WindowsPath{
+	return WindowsPath{
 		path{
 			path: strings.Join(pathsegments, windows.Separator),
 		},

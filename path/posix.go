@@ -10,16 +10,17 @@ import (
 
 type PosixPath struct {
 	path
-	*purepath.PurePosixPath
+	// *purepath.PurePosixPath
+	purepath.PurePosixPath
 }
 
 // Takes any number of strings, separated by commas.
-func NewPosixPath(pathsegments ...string) *PosixPath {
+func NewPosixPath(pathsegments ...string) PosixPath {
 	if platform == "windows" {
 		log.Panic()
 	}
 
-	return &PosixPath{
+	return PosixPath{
 		path{
 			path: strings.Join(pathsegments, posix.Separator),
 		},

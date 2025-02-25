@@ -14,7 +14,7 @@ func GetTestsPath() string {
 	return filepath.Join(home, ".local", "share", "go-pathlib", "tests")
 }
 
-func MakeTestsDir(dir string) {
+func MakeDir(dir string) {
 	err := os.MkdirAll(dir, 0o755)
 	if err != nil {
 		log.Fatal(err)

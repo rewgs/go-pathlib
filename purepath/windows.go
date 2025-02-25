@@ -14,18 +14,18 @@ type PureWindowsPath struct {
 	purePath
 }
 
-func NewPureWindowsPath(pathsegments ...string) *PureWindowsPath {
+func NewPureWindowsPath(pathsegments ...string) PureWindowsPath {
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return &PureWindowsPath{
+	return PureWindowsPath{
 		purePath{
 			path: strings.Join(pathsegments, windows.Separator),
 		},
 	}
 }
 
-func (p *PureWindowsPath) Anchor() string {
+func (p PureWindowsPath) Anchor() string {
 	drive := p.Drive()
 	if drive != "" {
 		return drive + windows.Separator
@@ -36,12 +36,12 @@ func (p *PureWindowsPath) Anchor() string {
 	return ""
 }
 
-func (p *PureWindowsPath) AsPosix() string {
+func (p PureWindowsPath) AsPosix() string {
 	return strings.ReplaceAll(p.path, windows.Separator, posix.Separator)
 }
 
 // A string representing the drive letter or name, if any.
-func (p *PureWindowsPath) Drive() string {
+func (p PureWindowsPath) Drive() string {
 	beginsWith, driveLetter := windows.GetDriveLetter(p.path)
 	if !beginsWith {
 		return ""
@@ -49,7 +49,7 @@ func (p *PureWindowsPath) Drive() string {
 	return driveLetter
 }
 
-func (p *PureWindowsPath) IsAbsolute() bool {
+func (p PureWindowsPath) IsAbsolute() bool {
 	if p.Drive() != "" && p.Root() != "" {
 		return true
 	}
@@ -62,17 +62,17 @@ func (p *PureWindowsPath) IsAbsolute() bool {
 // - "Note: This is a purely lexical operation..."
 //
 // The logical parent of the path.
-func (p *PureWindowsPath) Parent() PurePath {
+func (p PureWindowsPath) Parent() PurePath {
 	return NewPureWindowsPath(path.Dir(p.path))
 }
 
 // A slice giving access to the path's various components.
-func (p *PureWindowsPath) Parts() []string {
+func (p PureWindowsPath) Parts() []string {
 	return strings.Split(p.path, windows.Separator)
 }
 
 // A string representing the (local or global) root, if any.
-func (p *PureWindowsPath) Root() string {
+func (p PureWindowsPath) Root() string {
 	beginsWith, _ := windows.GetDriveLetter(p.path)
 	if !beginsWith {
 		return ""

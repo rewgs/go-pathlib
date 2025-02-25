@@ -2,15 +2,19 @@
 package purepath
 
 import (
+	"fmt"
 	"log"
 	"path"
 	"runtime"
 	"strings"
 )
 
+var platform string = runtime.GOOS
+
 // A generic interfaces that represents the system's path flavour (instantiating
 // it creates either a PurePosixPath or PureWindowsPath).
 type PurePath interface {
+	// pathlib methods:
 	Anchor() string
 	Drive() string
 	IsAbsolute() bool
@@ -33,6 +37,9 @@ type PurePath interface {
 	// WithSegments() PurePath
 	// WithStem() PurePath
 	// WithSuffix() PurePath
+
+	// added as part of this library:
+	AsString() string
 }
 
 // This forms the bases of the PurePosixPath and PureWindowsPath structs.
@@ -43,7 +50,11 @@ type purePath struct {
 	path string
 }
 
-func (p *purePath) Name() string {
+func (p purePath) AsString() string {
+	return p.path
+}
+
+func (p purePath) Name() string {
 	name := path.Base(p.path)
 	if name == "." || name == "/" {
 		log.Fatalf("Could not get name from %s", p.path)
@@ -51,7 +62,7 @@ func (p *purePath) Name() string {
 	return name
 }
 
-func (p *purePath) Stem() string {
+func (p purePath) Stem() string {
 	name := p.Name()
 	ext := p.Suffix()
 
@@ -62,20 +73,20 @@ func (p *purePath) Stem() string {
 	return before
 }
 
-func (p *purePath) Suffix() string {
+func (p purePath) Suffix() string {
 	return path.Ext(p.path)
 }
 
 // Takes any number of strings, separated by commas.
 // Returns either a PurePosixPath or PureWindowsPath, depending on `runtime.GOOS`.
 func New(pathsegments ...string) (PurePath, error) {
-	switch platform := runtime.GOOS; platform {
+	switch platform {
 	case "darwin":
 		return NewPurePosixPath(pathsegments...), nil
 	case "linux":
 		return NewPurePosixPath(pathsegments...), nil
 	case "posix":
-		return NewPurePosixPath(pathsegments...), nil
+		return NewPurePosixPath(pathsegments...), fmt.Errorf("Operating system not yet implemented or tested: %s\nProceed with caution.\n", platform)
 	case "windows":
 		return NewPureWindowsPath(pathsegments...), nil
 	default:
