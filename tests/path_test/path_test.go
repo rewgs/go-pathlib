@@ -12,7 +12,7 @@ func TestPath(t *testing.T) {
 	testsPath := utils.GetTestsPath()
 	utils.MakeDir(testsPath)
 
-	path, err := path.New(testsPath)
+	_, err := path.New(testsPath)
 	if err != nil {
 		t.Error(err)
 	}

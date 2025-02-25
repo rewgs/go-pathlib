@@ -4,14 +4,17 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	// "os/user"
 	"runtime"
+
+	// "os/user"
+	"github.com/rewgs/go-pathlib/purepath"
 )
 
 var platform string = runtime.GOOS
 
 // Path: A representation of a filepath.
 type Path interface {
+	// path methods:
 	Exists() (bool, error)
 	// TODO:
 	// Absolute() Path
@@ -54,6 +57,17 @@ type Path interface {
 	// Walk() // Not sure what to return here. error for sure, what else?
 	// WriteBytes() error // will require a Writer
 	// WriteText() error // will require a Writer
+
+	// pathlib methods:
+	Anchor() string
+	Drive() string
+	IsAbsolute() bool
+	Name() string
+	Parent() purepath.PurePath // I wonder if this should return a Path instead?
+	Parts() []string
+	Root() string
+	Stem() string
+	Suffix() string
 }
 
 type Shared struct {

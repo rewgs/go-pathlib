@@ -10,7 +10,7 @@ import (
 
 type WindowsPath struct {
 	Shared
-	purepath.PurePath
+	purepath.PureWindowsPath
 }
 
 // Takes any number of strings, separated by commas.
