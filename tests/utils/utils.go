@@ -3,15 +3,28 @@ package utils
 import (
 	"log"
 	"os"
+	"os/user"
 	"path/filepath"
 )
 
-func GetTestsPath() string {
+func GetUsername() string {
+	currentUser, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return currentUser.Username
+}
+
+func GetHome() string {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatal(err)
 	}
-	return filepath.Join(home, ".local", "share", "go-pathlib", "tests")
+	return home
+}
+
+func GetTestsPath() string {
+	return filepath.Join(GetHome(), ".local", "share", "go-pathlib", "tests")
 }
 
 func MakeDir(dir string) {
