@@ -1,9 +1,7 @@
 package path
 
 import (
-	"errors"
 	"fmt"
-	"os"
 	"runtime"
 
 	// "os/user"
@@ -16,6 +14,7 @@ var platform string = runtime.GOOS
 type Path interface {
 	// path methods:
 	Exists() (bool, error)
+	Home() (Path, error)
 	// TODO:
 	// Absolute() Path
 	// AsURI() Path
@@ -26,7 +25,6 @@ type Path interface {
 	// Glob() []Path
 	// Group() string // from user.User?
 	// HardlinkTo() error
-	// Home() Path
 	// IsBlockDevice() bool
 	// IsCharDevice() bool
 	// IsDir() bool
@@ -71,28 +69,6 @@ type Path interface {
 
 	// added to purepath for go-pathlib:
 	AsString() string
-}
-
-type Shared struct {
-	Path string
-}
-
-// TODO:
-// - `followSymlinks` argument.
-// - Check for permission-related errors in cases where file exists.
-//
-// Returns true if the path points to an existing file or directory.
-// This function normally follows symlinks; to check if a symlink exists, add the argument follow_symlinks=False
-func (p Shared) Exists() (bool, error) {
-	fileInfo, err := os.Stat(p.Path)
-	if errors.Is(err, os.ErrNotExist) {
-		return false, err
-	} else if err != nil && fileInfo == nil {
-		// This is a little sloppy, but for now it's fine.
-		// TODO: Specifically handle other errors.
-		return false, err
-	}
-	return true, nil
 }
 
 // Takes any number of strings, separated by commas.

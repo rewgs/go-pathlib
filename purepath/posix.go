@@ -37,10 +37,7 @@ func (p PurePosixPath) Drive() string {
 }
 
 func (p PurePosixPath) IsAbsolute() bool {
-	if p.Root() != "" {
-		return true
-	}
-	return false
+	return p.Root() != ""
 }
 
 // TODO:
