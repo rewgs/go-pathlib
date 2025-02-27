@@ -14,11 +14,11 @@ type Shared struct {
 	Path string
 }
 
-func (p Shared) AsString() string {
+func (p *Shared) AsString() string {
 	return p.Path
 }
 
-func (p Shared) Name() string {
+func (p *Shared) Name() string {
 	name := path.Base(p.Path)
 	if name == "." || name == "/" {
 		log.Fatalf("Could not get name from %s", p.Path)
@@ -26,7 +26,7 @@ func (p Shared) Name() string {
 	return name
 }
 
-func (p Shared) Stem() string {
+func (p *Shared) Stem() string {
 	name := p.Name()
 	ext := p.Suffix()
 
@@ -37,6 +37,6 @@ func (p Shared) Stem() string {
 	return before
 }
 
-func (p Shared) Suffix() string {
+func (p *Shared) Suffix() string {
 	return path.Ext(p.Path)
 }

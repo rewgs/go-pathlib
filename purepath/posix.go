@@ -13,11 +13,11 @@ type PurePosixPath struct {
 	Shared
 }
 
-func NewPurePosixPath(pathsegments ...string) PurePosixPath {
+func NewPurePosixPath(pathsegments ...string) *PurePosixPath {
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return PurePosixPath{
+	return &PurePosixPath{
 		Shared{
 			Path: strings.Join(pathsegments, posix.Separator),
 		},
@@ -25,7 +25,7 @@ func NewPurePosixPath(pathsegments ...string) PurePosixPath {
 }
 
 // The concatenation of the drive and root.
-func (p PurePosixPath) Anchor() string {
+func (p *PurePosixPath) Anchor() string {
 	if !strings.HasPrefix(p.Path, posix.Separator) {
 		return ""
 	}
@@ -33,15 +33,15 @@ func (p PurePosixPath) Anchor() string {
 }
 
 // A string representing the drive letter or name, if any.
-func (p PurePosixPath) Drive() string {
+func (p *PurePosixPath) Drive() string {
 	return ""
 }
 
-func (p PurePosixPath) IsAbsolute() bool {
+func (p *PurePosixPath) IsAbsolute() bool {
 	return p.Root() != ""
 }
 
-func (p PurePosixPath) JoinPath(pathsegments ...string) PurePath {
+func (p *PurePosixPath) JoinPath(pathsegments ...string) PurePath {
 	path := slices.Concat(strings.Split(p.Path, posix.Separator), pathsegments)
 	return NewPurePosixPath(path...)
 }
@@ -52,17 +52,17 @@ func (p PurePosixPath) JoinPath(pathsegments ...string) PurePath {
 // - "Note: This is a purely lexical operation..."
 //
 // The logical parent of the path.
-func (p PurePosixPath) Parent() PurePath {
+func (p *PurePosixPath) Parent() PurePath {
 	return NewPurePosixPath(path.Dir(p.Path))
 }
 
 // A slice giving access to the path's various components.
-func (p PurePosixPath) Parts() []string {
+func (p *PurePosixPath) Parts() []string {
 	return strings.Split(p.Path, posix.Separator)
 }
 
 // A string representing the (local or global) root, if any.
-func (p PurePosixPath) Root() string {
+func (p *PurePosixPath) Root() string {
 	if !strings.HasPrefix(p.Path, posix.Separator) {
 		return ""
 	}
