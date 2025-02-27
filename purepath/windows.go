@@ -3,6 +3,7 @@ package purepath
 import (
 	"log"
 	"path" // TODO: Test if this works with "\\" paths.
+	"slices"
 	"strings"
 	"unicode"
 
@@ -47,6 +48,11 @@ func (p PureWindowsPath) Drive() string {
 		return ""
 	}
 	return driveLetter
+}
+
+func (p PureWindowsPath) JoinPath(pathsegments ...string) PurePath {
+	path := slices.Concat(strings.Split(p.Path, windows.Separator), pathsegments)
+	return NewPurePosixPath(path...)
 }
 
 func (p PureWindowsPath) IsAbsolute() bool {

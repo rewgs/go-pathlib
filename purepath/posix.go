@@ -3,6 +3,7 @@ package purepath
 import (
 	"log"
 	"path"
+	"slices"
 	"strings"
 
 	"github.com/rewgs/go-pathlib/internal/posix"
@@ -38,6 +39,11 @@ func (p PurePosixPath) Drive() string {
 
 func (p PurePosixPath) IsAbsolute() bool {
 	return p.Root() != ""
+}
+
+func (p PurePosixPath) JoinPath(pathsegments ...string) PurePath {
+	path := slices.Concat(strings.Split(p.Path, posix.Separator), pathsegments)
+	return NewPurePosixPath(path...)
 }
 
 // TODO:
