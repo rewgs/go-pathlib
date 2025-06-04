@@ -9,7 +9,7 @@ import (
 )
 
 type WindowsPath struct {
-	Shared
+	PathBase
 	purepath.PureWindowsPath
 }
 
@@ -19,12 +19,12 @@ func NewWindowsPath(pathsegments ...string) WindowsPath {
 		log.Panic()
 	}
 
-	path := strings.Join(pathsegments, windows.Separator)
+	filepath := strings.Join(pathsegments, windows.Separator)
 
 	return WindowsPath{
-		Shared{Path: path},
+		PathBase{Filepath: filepath},
 		purepath.PureWindowsPath{
-			purepath.Shared{Path: path},
+			purepath.SharedPosixPath{Filepath: filepath},
 		},
 	}
 }

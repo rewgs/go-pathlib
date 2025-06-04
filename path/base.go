@@ -7,18 +7,12 @@ import (
 	"os"
 )
 
-type Shared struct {
-	Path string
+type SharedPath struct {
+	Filepath string
 }
 
-// TODO:
-// - `followSymlinks` argument.
-// - Check for permission-related errors in cases where file exists.
-//
-// Returns true if the path points to an existing file or directory.
-// This function normally follows symlinks; to check if a symlink exists, add the argument follow_symlinks=False
-func (p Shared) Exists() (bool, error) {
-	fileInfo, err := os.Stat(p.Path)
+func (p SharedPath) Exists() (bool, error) {
+	fileInfo, err := os.Stat(p.Filepath)
 	if errors.Is(err, os.ErrNotExist) {
 		return false, err
 	} else if err != nil && fileInfo == nil {
@@ -29,7 +23,7 @@ func (p Shared) Exists() (bool, error) {
 	return true, nil
 }
 
-func (p Shared) Home() (Path, error) {
+func (p SharedPath) Home() (Path, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatal(err)
@@ -37,7 +31,7 @@ func (p Shared) Home() (Path, error) {
 	return New(home)
 }
 
-func (p Shared) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
+func (p SharedPath) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
 	exists, err := p.Exists()
 
 	// os.ErrNotExist is okay here, so it doesn't need to be returned or dealt with.
@@ -55,12 +49,12 @@ func (p Shared) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
 	}
 
 	if parents {
-		err := os.MkdirAll(p.Path, *mode)
+		err := os.MkdirAll(p.Filepath, *mode)
 		if err != nil {
 			return err
 		}
 	} else {
-		err := os.Mkdir(p.Path, *mode)
+		err := os.Mkdir(p.Filepath, *mode)
 		if err != nil {
 			return err
 		}

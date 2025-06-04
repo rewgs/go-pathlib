@@ -10,23 +10,23 @@ import (
 // Any methods that are shared between both flavors are implemented via this
 // struct, whereas any methods that differ between flavors are implemented via
 // their respective struct.
-type Shared struct {
-	Path string
+type SharedPosixPath struct {
+	Filepath string
 }
 
-func (p Shared) AsString() string {
-	return p.Path
+func (p SharedPosixPath) AsString() string {
+	return p.Filepath
 }
 
-func (p Shared) Name() string {
-	name := path.Base(p.Path)
+func (p SharedPosixPath) Name() string {
+	name := path.Base(p.Filepath)
 	if name == "." || name == "/" {
-		log.Fatalf("Could not get name from %s", p.Path)
+		log.Fatalf("Could not get name from %s", p.Filepath)
 	}
 	return name
 }
 
-func (p Shared) Stem() string {
+func (p SharedPosixPath) Stem() string {
 	name := p.Name()
 	ext := p.Suffix()
 
@@ -37,6 +37,6 @@ func (p Shared) Stem() string {
 	return before
 }
 
-func (p Shared) Suffix() string {
-	return path.Ext(p.Path)
+func (p SharedPosixPath) Suffix() string {
+	return path.Ext(p.Filepath)
 }
