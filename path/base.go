@@ -3,7 +3,6 @@ package path
 import (
 	"errors"
 	"io/fs"
-	"log"
 	"os"
 )
 
@@ -26,7 +25,7 @@ func (p Base) Exists() (bool, error) {
 func (p Base) Home() (Path, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	return New(home)
 }
