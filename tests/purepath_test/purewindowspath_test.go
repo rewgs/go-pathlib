@@ -4,12 +4,10 @@ import (
 	"testing"
 
 	"github.com/rewgs/go-pathlib/purepath"
-	"github.com/rewgs/go-pathlib/tests/utils"
 )
 
 func TestPureWindowsPathAnchor(t *testing.T) {
 	testPath := t.TempDir()
-	utils.MakeDir(testPath)
 
 	path, err := purepath.New(testPath)
 	if err != nil {

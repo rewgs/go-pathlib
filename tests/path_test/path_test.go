@@ -4,13 +4,11 @@ import (
 	"testing"
 
 	"github.com/rewgs/go-pathlib/path"
-	"github.com/rewgs/go-pathlib/tests/utils"
 )
 
 // Simple test creating the Path struct. Does not affect I/O  beyond utils.MakeDir().
 func TestPath(t *testing.T) {
 	testPath := t.TempDir()
-	utils.MakeDir(testPath)
 
 	_, err := path.New(testPath)
 	if err != nil {
@@ -20,7 +18,6 @@ func TestPath(t *testing.T) {
 
 func TestPathAsString(t *testing.T) {
 	testPath := t.TempDir()
-	utils.MakeDir(testPath)
 
 	path, err := path.New(testPath)
 	if err != nil {
@@ -34,7 +31,6 @@ func TestPathAsString(t *testing.T) {
 
 func TestPathIsAbsolute(t *testing.T) {
 	testPath := t.TempDir()
-	utils.MakeDir(testPath)
 
 	path, err := path.New(testPath)
 	if err != nil {

@@ -23,11 +23,9 @@ func GetHome() string {
 	return home
 }
 
-// Even though go-pathlib implements as MkDir function, this needs to exist so that directories can
-// be made in tests without relying on the library that is being tested.
-func MakeDir(dir string) {
-	err := os.MkdirAll(dir, 0o755)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
+// func MakeDir(dir string) {
+// 	err := os.MkdirAll(dir, 0o755)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// }
