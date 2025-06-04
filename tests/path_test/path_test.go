@@ -9,7 +9,8 @@ import (
 
 // Simple test creating the Path struct. Does not affect I/O  beyond utils.MakeDir().
 func TestPath(t *testing.T) {
-	testsPath := utils.GetTestsPath()
+	// testsPath := utils.GetTestsPath()
+	testsPath := t.TempDir()
 	utils.MakeDir(testsPath)
 
 	_, err := path.New(testsPath)
@@ -19,7 +20,8 @@ func TestPath(t *testing.T) {
 }
 
 func TestPathAsString(t *testing.T) {
-	testsPath := utils.GetTestsPath()
+	// testsPath := utils.GetTestsPath()
+	testsPath := t.TempDir()
 	utils.MakeDir(testsPath)
 
 	path, err := path.New(testsPath)
@@ -33,7 +35,8 @@ func TestPathAsString(t *testing.T) {
 }
 
 func TestPathIsAbsolute(t *testing.T) {
-	testsPath := utils.GetTestsPath()
+	// testsPath := utils.GetTestsPath()
+	testsPath := t.TempDir()
 	utils.MakeDir(testsPath)
 
 	path, err := path.New(testsPath)

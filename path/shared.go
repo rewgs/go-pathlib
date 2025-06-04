@@ -2,6 +2,7 @@ package path
 
 import (
 	"errors"
+	"io/fs"
 	"log"
 	"os"
 )
@@ -34,4 +35,36 @@ func (p Shared) Home() (Path, error) {
 		log.Fatal(err)
 	}
 	return New(home)
+}
+
+func (p Shared) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
+	exists, err := p.Exists()
+
+	// os.ErrNotExist is okay here, so it doesn't need to be returned or dealt with.
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
+
+	if exists && !existOK {
+		return os.ErrExist
+	}
+
+	if mode == nil {
+		perm := fs.FileMode(0o777)
+		mode = &perm
+	}
+
+	if parents {
+		err := os.MkdirAll(p.Path, *mode)
+		if err != nil {
+			return err
+		}
+	} else {
+		err := os.Mkdir(p.Path, *mode)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

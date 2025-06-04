@@ -9,7 +9,7 @@ import (
 
 // Simple test creating the Path struct. Does not affect I/O  beyond utils.MakeDir().
 func TestPurePath(t *testing.T) {
-	testPath := utils.GetTestsPath()
+	testPath := t.TempDir()
 	utils.MakeDir(testPath)
 
 	_, err := purepath.New(testPath)

@@ -2,9 +2,9 @@ package path
 
 import (
 	"fmt"
+	"io/fs"
 	"runtime"
 
-	// "os/user"
 	"github.com/rewgs/go-pathlib/purepath"
 )
 
@@ -15,6 +15,20 @@ type Path interface {
 	// path methods:
 	Exists() (bool, error)
 	Home() (Path, error)
+
+	// Creates a new directory at this given Path.
+	//
+	// If `mode` is nil, it is set to 0o777.
+	//
+	// If `parents` is true, any missing parents of this path are created as needed;
+	// they are created with the default permissions without taking `mode` into
+	// account (mimicking the POSIX `mkdir -p` command).
+	//
+	// If `existOK` is true, os.ErrExist will not be raised unless the given path
+	// already exists in the file system and is not a directory (same behavior as
+	// the POSIX `mkdir -p` command).
+	MkDir(mode fs.FileMode, parents bool, existOK bool) error
+
 	// TODO:
 	// Absolute() Path
 	// AsURI() Path
@@ -36,7 +50,6 @@ type Path interface {
 	// Iterdir() // Not sure what to return here. error for sure, what else?
 	// Lchmod() error
 	// Lstat() fs.FileInfo
-	// MkDir(fs.FileMode) error
 	// Open() // Probably returns a Handler?
 	// Owner() string // from user.User?
 	// ReadBytes() []bytes
@@ -56,6 +69,8 @@ type Path interface {
 	// WriteBytes() error // will require a Writer
 	// WriteText() error // will require a Writer
 
+	// TODO: Perhaps make these private and set the resulting values as public fields?
+	//
 	// pathlib methods:
 	Anchor() string
 	Drive() string
