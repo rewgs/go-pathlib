@@ -12,7 +12,7 @@ import (
 )
 
 type PureWindowsPath struct {
-	PosixPathBase
+	Base
 }
 
 func NewPureWindowsPath(pathsegments ...string) PureWindowsPath {
@@ -20,7 +20,7 @@ func NewPureWindowsPath(pathsegments ...string) PureWindowsPath {
 		log.Fatal("Cannot create path.")
 	}
 	return PureWindowsPath{
-		PosixPathBase{
+		Base{
 			Filepath: strings.Join(pathsegments, windows.Separator),
 		},
 	}

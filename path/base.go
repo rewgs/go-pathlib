@@ -7,11 +7,11 @@ import (
 	"os"
 )
 
-type PathBase struct {
+type Base struct {
 	Filepath string
 }
 
-func (p PathBase) Exists() (bool, error) {
+func (p Base) Exists() (bool, error) {
 	fileInfo, err := os.Stat(p.Filepath)
 	if errors.Is(err, os.ErrNotExist) {
 		return false, err
@@ -23,7 +23,7 @@ func (p PathBase) Exists() (bool, error) {
 	return true, nil
 }
 
-func (p PathBase) Home() (Path, error) {
+func (p Base) Home() (Path, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatal(err)
@@ -31,7 +31,7 @@ func (p PathBase) Home() (Path, error) {
 	return New(home)
 }
 
-func (p PathBase) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
+func (p Base) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
 	exists, err := p.Exists()
 
 	// os.ErrNotExist is okay here, so it doesn't need to be returned or dealt with.

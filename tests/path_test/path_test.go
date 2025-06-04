@@ -9,37 +9,34 @@ import (
 
 // Simple test creating the Path struct. Does not affect I/O  beyond utils.MakeDir().
 func TestPath(t *testing.T) {
-	// testsPath := utils.GetTestsPath()
-	testsPath := t.TempDir()
-	utils.MakeDir(testsPath)
+	testPath := t.TempDir()
+	utils.MakeDir(testPath)
 
-	_, err := path.New(testsPath)
+	_, err := path.New(testPath)
 	if err != nil {
 		t.Error(err)
 	}
 }
 
 func TestPathAsString(t *testing.T) {
-	// testsPath := utils.GetTestsPath()
-	testsPath := t.TempDir()
-	utils.MakeDir(testsPath)
+	testPath := t.TempDir()
+	utils.MakeDir(testPath)
 
-	path, err := path.New(testsPath)
+	path, err := path.New(testPath)
 	if err != nil {
 		t.Error(err)
 	}
 
-	if path.AsString() != testsPath {
-		t.Errorf("TestPathAsString: wanted: %s; got: %s\n", testsPath, path.AsString())
+	if path.AsString() != testPath {
+		t.Errorf("TestPathAsString: wanted: %s; got: %s\n", testPath, path.AsString())
 	}
 }
 
 func TestPathIsAbsolute(t *testing.T) {
-	// testsPath := utils.GetTestsPath()
-	testsPath := t.TempDir()
-	utils.MakeDir(testsPath)
+	testPath := t.TempDir()
+	utils.MakeDir(testPath)
 
-	path, err := path.New(testsPath)
+	path, err := path.New(testPath)
 	if err != nil {
 		t.Error(err)
 	}

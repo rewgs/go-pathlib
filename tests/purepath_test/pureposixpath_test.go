@@ -10,7 +10,6 @@ import (
 )
 
 func TestPurePosixPathAnchor(t *testing.T) {
-	// testPath := utils.GetTestsPath()
 	testPath := t.TempDir()
 	utils.MakeDir(testPath)
 
@@ -31,7 +30,6 @@ func TestPurePosixPathAnchor(t *testing.T) {
 }
 
 func TestPurePosixPathDrive(t *testing.T) {
-	// testPath := utils.GetTestsPath()
 	testPath := t.TempDir()
 	utils.MakeDir(testPath)
 
@@ -52,7 +50,6 @@ func TestPurePosixPathDrive(t *testing.T) {
 }
 
 func TestPurePosixPathIsAbsolute(t *testing.T) {
-	// testPath := utils.GetTestsPath()
 	testPath := t.TempDir()
 	utils.MakeDir(testPath)
 
@@ -75,7 +72,6 @@ func TestPurePosixPathIsAbsolute(t *testing.T) {
 // FIXME:
 //
 // func TestPurePosixPathParent(t *testing.T) {
-// 	// testPath := utils.GetTestsPath()
 // 	testPath := t.TempDir()
 // 	utils.MakeDir(testPath)
 //
@@ -105,7 +101,6 @@ func TestPurePosixPathIsAbsolute(t *testing.T) {
 // 		}
 // 	}
 //
-// 	// testPath := utils.GetTestsPath()
 // 	testPath := t.TempDir()
 // 	utils.MakeDir(testPath)
 //
@@ -134,7 +129,6 @@ func TestPurePosixPathIsAbsolute(t *testing.T) {
 // }
 
 func TestPurePosixPathRoot(t *testing.T) {
-	// testPath := utils.GetTestsPath()
 	testPath := t.TempDir()
 	utils.MakeDir(testPath)
 

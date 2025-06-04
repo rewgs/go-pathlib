@@ -8,7 +8,6 @@ import (
 )
 
 func TestPureWindowsPathAnchor(t *testing.T) {
-	// testPath := utils.GetTestsPath()
 	testPath := t.TempDir()
 	utils.MakeDir(testPath)
 

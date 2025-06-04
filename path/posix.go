@@ -9,7 +9,7 @@ import (
 )
 
 type PosixPath struct {
-	PathBase
+	Base
 	purepath.PurePosixPath
 }
 
@@ -22,11 +22,11 @@ func NewPosixPath(pathsegments ...string) PosixPath {
 	filepath := strings.Join(pathsegments, posix.Separator)
 
 	return PosixPath{
-		PathBase{
+		Base{
 			Filepath: filepath,
 		},
 		purepath.PurePosixPath{
-			purepath.SharedPosixPath{
+			purepath.Base{
 				Filepath: filepath,
 			},
 		},
