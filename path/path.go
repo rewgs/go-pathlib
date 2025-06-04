@@ -13,7 +13,15 @@ var platform string = runtime.GOOS
 // Path: A representation of a filepath.
 type Path interface {
 	// path methods:
+
+	// TODO:
+	// - `followSymlinks` argument.
+	// - Check for permission-related errors in cases where file exists.
+	//
+	// Returns true if the path points to an existing file or directory.
+	// This function normally follows symlinks; to check if a symlink exists, add the argument follow_symlinks=False
 	Exists() (bool, error)
+
 	Home() (Path, error)
 
 	// Creates a new directory at this given Path.
