@@ -21,6 +21,7 @@ type PurePath interface {
 	Root() string
 	Stem() string
 	Suffix() string
+
 	// TODO:
 	// FullMatch() bool
 	// IsRelativeTo() bool

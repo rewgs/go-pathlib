@@ -27,7 +27,7 @@ type Path interface {
 	// If `existOK` is true, os.ErrExist will not be raised unless the given path
 	// already exists in the file system and is not a directory (same behavior as
 	// the POSIX `mkdir -p` command).
-	MkDir(mode fs.FileMode, parents bool, existOK bool) error
+	MkDir(mode *fs.FileMode, parents bool, existOK bool) error
 
 	// TODO:
 	// Absolute() Path

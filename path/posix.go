@@ -22,9 +22,13 @@ func NewPosixPath(pathsegments ...string) PosixPath {
 	path := strings.Join(pathsegments, posix.Separator)
 
 	return PosixPath{
-		Shared{Path: path},
+		Shared{
+			Path: path,
+		},
 		purepath.PurePosixPath{
-			purepath.Shared{Path: path},
+			purepath.Shared{
+				Path: path,
+			},
 		},
 	}
 }
