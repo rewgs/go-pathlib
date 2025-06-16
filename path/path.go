@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"io/fs"
 	"runtime"
-
-	"github.com/rewgs/go-pathlib/purepath"
 )
 
 var platform string = runtime.GOOS
@@ -77,18 +75,19 @@ type Path interface {
 	// WriteBytes() error // will require a Writer
 	// WriteText() error // will require a Writer
 
-	// TODO: Perhaps make these private and set the resulting values as public fields?
+	// NOTE: I suppose these don't need to be present here since
+	// they're in PurePath, and Path has an embedded PurePath.
 	//
 	// pathlib methods:
-	Anchor() string
-	Drive() string
-	IsAbsolute() bool
-	Name() string
-	Parent() purepath.PurePath
-	Parts() []string
-	Root() string
-	Stem() string
-	Suffix() string
+	// Anchor() string
+	// Drive() string
+	// IsAbsolute() bool
+	// Name() string
+	// Parent() purepath.PurePath
+	// Parts() []string
+	// Root() string
+	// Stem() string
+	// Suffix() string
 
 	// added to purepath for go-pathlib:
 	AsString() string
