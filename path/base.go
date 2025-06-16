@@ -27,7 +27,9 @@ func (p Base) Home() (Path, error) {
 	if err != nil {
 		return nil, err
 	}
-	return New(home)
+
+	path, err := New(home)
+	return path, err
 }
 
 func (p Base) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
