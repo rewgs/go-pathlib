@@ -16,13 +16,9 @@ Additionally, both `PurePath` and `Path` contain OS-specific implementations: `P
 
 ```mermaid
 graph BT;
-    Path --> Purepath;
     PurePosixPath --> PurePath;
     PureWindowsPath --> PurePath;
-    PosixPath --> PurePosixPath;
-    PosixPath --> Path;
-    WindowsPath --> PureWindowsPath;
-    WindowsPath --> Path;
+    Path --> Purepath;
 ```
 
 ## Deviations from `pathlib`
