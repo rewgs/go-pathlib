@@ -18,7 +18,7 @@ Additionally, both `PurePath` and `Path` contain OS-specific implementations: `P
 graph BT;
     PurePosixPath --> PurePath;
     PureWindowsPath --> PurePath;
-    Path --> Purepath;
+    Path --> PurePath;
 ```
 
 ## Deviations from `pathlib`
