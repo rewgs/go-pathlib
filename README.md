@@ -19,6 +19,10 @@ graph BT;
     PurePosixPath --> PurePath;
     Path --> PurePath;
     PureWindowsPath --> PurePath;
+    PosixPath --> PurePosixPath;
+    PosixPath --> Path;
+    WindowsPath --> PureWindowsPath;
+    WindowsPath --> Path;
 ```
 
 ## Deviations from `pathlib`
