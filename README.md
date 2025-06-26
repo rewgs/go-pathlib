@@ -15,8 +15,8 @@ Like Python's `pathlib`, `go-pathlib` contains to base types: `Path` and `PurePa
 Additionally, both `PurePath` and `Path` contain OS-specific implementations: `PurePosixPath`, `PureWindowsPath`, `PosixPath`, and `WindowsPath`. Their relationships can be diagrammed as follows:
 
 ```mermaid
-graph TD;
-    PurePath <-- Path;
+graph BT;
+    PurePath --> Path;
 ```
 
 ## Deviations from `pathlib`
