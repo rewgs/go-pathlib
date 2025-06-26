@@ -16,7 +16,7 @@ Additionally, both `PurePath` and `Path` contain OS-specific implementations: `P
 
 ```mermaid
 graph TD;
-    PurePath --> Path;
+    PurePath <-- Path;
 ```
 
 ## Deviations from `pathlib`
