@@ -4,6 +4,29 @@ An implementation of Python's [`pathlib`](https://docs.python.org/3/library/path
 
 This package is in extremely early development. Contributions are welcome!
 
+## Similarities to `pathlib`
+
+Like Python's `pathlib`, `go-pathlib` contains to base types: `Path` and `PurePath`.
+
+`PurePath` is the base type upon which all else rests. `PurePath`s provide purely computational operations _without I/O_.
+
+`Path` types, also known as "concrete paths," contain embedded `PurePath` structs and provide I/O operations.
+
+Additionally, both `PurePath` and `Path` contain OS-specific implementations: `PurePosixPath`, `PureWindowsPath`, `PosixPath`, and `WindowsPath`. Their relationships can be diagrammed as follows:
+
+```mermaid
+graph TD;
+    PurePath --> Path;
+```
+
+## Deviations from `pathlib`
+
+`Path` and `PurePath` are interfaces, so properties in `pathlib` are member functions in `go-pathlib`, e.g. `Path.name` becomes `Path.Name()`.
+
+Some quality-of-life improvements have been added as well, such as `Path.AsString()`.
+
+## Parity with `pathlib`
+
 | `pathlib` function                                                                    | `go-pathlib` function | status      |
 | :------------------------------------------------------------------------------------ | :-------------------- | :---------- |
 | `Path.absolute()`                                                                     | `Absolute()`          | todo        |
