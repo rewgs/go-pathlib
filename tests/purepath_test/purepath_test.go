@@ -15,3 +15,16 @@ func TestPurePath(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func TestPathIsAbsolute(t *testing.T) {
+	testPath := t.TempDir()
+
+	path, err := purepath.New(testPath)
+	if err != nil {
+		t.Error(err)
+	}
+
+	if !path.IsAbsolute() {
+		t.Errorf("TestPathIsAbsolute(): %s is not absolute", path.AsString())
+	}
+}

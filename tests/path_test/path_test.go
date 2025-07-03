@@ -29,15 +29,15 @@ func TestPathAsString(t *testing.T) {
 	}
 }
 
-func TestPathIsAbsolute(t *testing.T) {
-	testPath := t.TempDir()
-
-	path, err := path.New(testPath)
-	if err != nil {
-		t.Error(err)
-	}
-
-	if !path.IsAbsolute() {
-		t.Errorf("TestPathIsAbsolute(): %s is not absolute", path.AsString())
-	}
-}
+// func TestPathIsAbsolute(t *testing.T) {
+// 	testPath := t.TempDir()
+//
+// 	path, err := path.New(testPath)
+// 	if err != nil {
+// 		t.Error(err)
+// 	}
+//
+// 	if !path.IsAbsolute() {
+// 		t.Errorf("TestPathIsAbsolute(): %s is not absolute", path.AsString())
+// 	}
+// }
