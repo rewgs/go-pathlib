@@ -8,7 +8,7 @@ import (
 
 var platform string = runtime.GOOS
 
-// Path: A representation of a filepath.
+// Path represents a concrete path and thus provides I/O operations.
 type Path interface {
 	// path methods:
 

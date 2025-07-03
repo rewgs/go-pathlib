@@ -8,8 +8,7 @@ import (
 
 var platform string = runtime.GOOS
 
-// A generic interfaces that represents the system's path flavour (instantiating
-// it creates either a PurePosixPath or PureWindowsPath).
+// PurePath provides purely computational operations without I/O.
 type PurePath interface {
 	// pathlib methods:
 	Anchor() string
