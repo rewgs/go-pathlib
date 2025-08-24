@@ -76,7 +76,7 @@ func (p PureWindowsPath) IsAbsolute() bool {
 // - "Note: This is a purely lexical operation..."
 //
 // The logical parent of the path.
-func (p PureWindowsPath) Parent() purePath {
+func (p PureWindowsPath) Parent() PurePath {
 	return NewPureWindowsPath(path.Dir(p.Filepath))
 }
 
