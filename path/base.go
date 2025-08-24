@@ -19,10 +19,6 @@ type base struct {
 
 // newBase() returns a base with an embedded PurePath struct matching the current runtime.GOOS.
 func newBase(pathsegments ...string) base {
-	// p := purepath.New(pathsegments...)
-	// b := base{p}
-	// return b
-
 	return base{
 		purepath.New(pathsegments...),
 	}
