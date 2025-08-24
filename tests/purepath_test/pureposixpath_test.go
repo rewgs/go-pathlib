@@ -11,10 +11,7 @@ import (
 func TestPurePosixPathAnchor(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.PurePath(testPath)
-	if err != nil {
-		t.Error(err)
-	}
+	path := purepath.New(testPath)
 
 	_, ok := path.(purepath.PurePosixPath)
 	if !ok {
@@ -30,10 +27,7 @@ func TestPurePosixPathAnchor(t *testing.T) {
 func TestPurePosixPathDrive(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.PurePath(testPath)
-	if err != nil {
-		t.Error(err)
-	}
+	path := purepath.New(testPath)
 
 	_, ok := path.(purepath.PurePosixPath)
 	if !ok {
@@ -49,10 +43,7 @@ func TestPurePosixPathDrive(t *testing.T) {
 func TestPurePosixPathIsAbsolute(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.PurePath(testPath)
-	if err != nil {
-		t.Error(err)
-	}
+	path := purepath.New(testPath)
 
 	_, ok := path.(purepath.PurePosixPath)
 	if !ok {
@@ -68,10 +59,7 @@ func TestPurePosixPathIsAbsolute(t *testing.T) {
 func TestPurePosixPathParent(t *testing.T) {
 	testPath := t.TempDir()
 
-	p, err := purepath.PurePath(testPath)
-	if err != nil {
-		t.Error(err)
-	}
+	p := purepath.New(testPath)
 
 	// Type assertion
 	// https://go.dev/tour/methods/15
@@ -90,10 +78,7 @@ func TestPurePosixPathParent(t *testing.T) {
 func TestPurePosixPathRoot(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.PurePath(testPath)
-	if err != nil {
-		t.Error(err)
-	}
+	path := purepath.New(testPath)
 
 	_, ok := path.(purepath.PurePosixPath)
 	if !ok {

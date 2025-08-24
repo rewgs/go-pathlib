@@ -9,10 +9,7 @@ import (
 func TestPureWindowsPathAnchor(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.PurePath(testPath)
-	if err != nil {
-		t.Error(err)
-	}
+	path := purepath.New(testPath)
 
 	_, ok := path.(purepath.PureWindowsPath)
 	if !ok {
