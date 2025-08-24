@@ -10,17 +10,17 @@ import (
 // Any methods that are shared between both flavors are implemented via this struct, whereas
 // any methods that differ between flavors are implemented via their respective struct.
 type base struct {
-	Filepath string
+	filepath string
 }
 
 func (p base) AsString() string {
-	return p.Filepath
+	return p.filepath
 }
 
 func (p base) Name() string {
-	name := path.Base(p.Filepath)
+	name := path.Base(p.filepath)
 	if name == "." || name == "/" {
-		log.Fatalf("Could not get name from %s", p.Filepath)
+		log.Fatalf("Could not get name from %s", p.filepath)
 	}
 	return name
 }
@@ -37,5 +37,5 @@ func (p base) Stem() string {
 }
 
 func (p base) Suffix() string {
-	return path.Ext(p.Filepath)
+	return path.Ext(p.filepath)
 }

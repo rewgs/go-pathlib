@@ -30,7 +30,7 @@ func NewPureWindowsPath(pathsegments ...string) PureWindowsPath {
 	// 	},
 	// }
 	pureWindowsPath := PureWindowsPath{}
-	pureWindowsPath.Filepath = strings.Join(pathsegments, windows.Separator)
+	pureWindowsPath.filepath = strings.Join(pathsegments, windows.Separator)
 	return pureWindowsPath
 }
 
@@ -39,19 +39,19 @@ func (p PureWindowsPath) Anchor() string {
 	if drive != "" {
 		return drive + windows.Separator
 	}
-	if unicode.IsLetter(rune(p.Filepath[0])) && (string(p.Filepath[1]) == "/" || string(p.Filepath[1]) == "\\") {
-		return p.Filepath[:2]
+	if unicode.IsLetter(rune(p.filepath[0])) && (string(p.filepath[1]) == "/" || string(p.filepath[1]) == "\\") {
+		return p.filepath[:2]
 	}
 	return ""
 }
 
 func (p PureWindowsPath) AsPosix() string {
-	return strings.ReplaceAll(p.Filepath, windows.Separator, posix.Separator)
+	return strings.ReplaceAll(p.filepath, windows.Separator, posix.Separator)
 }
 
 // A string representing the drive letter or name, if any.
 func (p PureWindowsPath) Drive() string {
-	beginsWith, driveLetter := windows.GetDriveLetter(p.Filepath)
+	beginsWith, driveLetter := windows.GetDriveLetter(p.filepath)
 	if !beginsWith {
 		return ""
 	}
@@ -59,7 +59,7 @@ func (p PureWindowsPath) Drive() string {
 }
 
 func (p PureWindowsPath) JoinPath(pathsegments ...string) PurePath {
-	path := slices.Concat(strings.Split(p.Filepath, windows.Separator), pathsegments)
+	path := slices.Concat(strings.Split(p.filepath, windows.Separator), pathsegments)
 	return NewPurePosixPath(path...)
 }
 
@@ -77,17 +77,17 @@ func (p PureWindowsPath) IsAbsolute() bool {
 //
 // The logical parent of the path.
 func (p PureWindowsPath) Parent() PurePath {
-	return NewPureWindowsPath(path.Dir(p.Filepath))
+	return NewPureWindowsPath(path.Dir(p.filepath))
 }
 
 // A slice giving access to the path's various components.
 func (p PureWindowsPath) Parts() []string {
-	return strings.Split(p.Filepath, windows.Separator)
+	return strings.Split(p.filepath, windows.Separator)
 }
 
 // A string representing the (local or global) root, if any.
 func (p PureWindowsPath) Root() string {
-	beginsWith, _ := windows.GetDriveLetter(p.Filepath)
+	beginsWith, _ := windows.GetDriveLetter(p.filepath)
 	if !beginsWith {
 		return ""
 	}
