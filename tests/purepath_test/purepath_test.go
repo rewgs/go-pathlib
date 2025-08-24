@@ -10,7 +10,7 @@ import (
 func TestPurePath(t *testing.T) {
 	testPath := t.TempDir()
 
-	_, err := purepath.New(testPath)
+	_, err := purepath.PurePath(testPath)
 	if err != nil {
 		t.Error(err)
 	}
@@ -19,7 +19,7 @@ func TestPurePath(t *testing.T) {
 func TestPathIsAbsolute(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.New(testPath)
+	path, err := purepath.PurePath(testPath)
 	if err != nil {
 		t.Error(err)
 	}

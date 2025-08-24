@@ -16,14 +16,22 @@ type PureWindowsPath struct {
 }
 
 func NewPureWindowsPath(pathsegments ...string) PureWindowsPath {
+	if platform != "windows" {
+		log.Panic()
+	}
+
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return PureWindowsPath{
-		Base{
-			Filepath: strings.Join(pathsegments, windows.Separator),
-		},
-	}
+
+	// return PureWindowsPath{
+	// 	Base{
+	// 		Filepath: strings.Join(pathsegments, windows.Separator),
+	// 	},
+	// }
+	pureWindowsPath := PureWindowsPath{}
+	pureWindowsPath.Filepath = strings.Join(pathsegments, windows.Separator)
+	return pureWindowsPath
 }
 
 func (p PureWindowsPath) Anchor() string {
@@ -68,7 +76,7 @@ func (p PureWindowsPath) IsAbsolute() bool {
 // - "Note: This is a purely lexical operation..."
 //
 // The logical parent of the path.
-func (p PureWindowsPath) Parent() PurePath {
+func (p PureWindowsPath) Parent() purePath {
 	return NewPureWindowsPath(path.Dir(p.Filepath))
 }
 

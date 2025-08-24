@@ -14,14 +14,22 @@ type PurePosixPath struct {
 }
 
 func NewPurePosixPath(pathsegments ...string) PurePosixPath {
+	if platform == "windows" {
+		log.Panic("NewPosixPath does not support Windows")
+	}
+
 	if len(pathsegments) == 0 {
 		log.Fatal("Cannot create path.")
 	}
-	return PurePosixPath{
-		Base{
-			Filepath: strings.Join(pathsegments, posix.Separator),
-		},
-	}
+
+	// return PurePosixPath{
+	// 	Base{
+	// 		Filepath: strings.Join(pathsegments, posix.Separator),
+	// 	},
+	// }
+	purePosixPath := PurePosixPath{}
+	purePosixPath.Filepath = strings.Join(pathsegments, posix.Separator)
+	return purePosixPath
 }
 
 // The concatenation of the drive and root.

@@ -18,7 +18,7 @@ type Path interface {
 	//
 	// Returns true if the path points to an existing file or directory.
 	// This function normally follows symlinks; to check if a symlink exists, add the argument follow_symlinks=False
-	Exists() (bool, error)
+	Exists() bool
 
 	Home() (Path, error)
 
@@ -95,16 +95,17 @@ type Path interface {
 
 // Takes any number of strings, separated by commas.
 // Returns either a PurePosixPath or PureWindowsPath, depending on `runtime.GOOS`.
-func New(pathsegments ...string) (Path, error) {
+func New(pathsegments ...string) Path {
 	switch platform {
 	case "darwin":
-		return NewPosixPath(pathsegments...), nil
+		return NewPosixPath(pathsegments...)
 	case "linux":
-		return NewPosixPath(pathsegments...), nil
+		return NewPosixPath(pathsegments...)
 	case "posix":
-		return NewPosixPath(pathsegments...), fmt.Errorf("Operating system not yet implemented or tested: %s\nProceed with caution.\n", platform)
+		fmt.Printf("WARNING: operating system not yet implemented or tested: %s\nProceed with caution.\n", platform)
+		return NewPosixPath(pathsegments...)
 	case "windows":
-		return NewWindowsPath(pathsegments...), nil
+		return NewWindowsPath(pathsegments...)
 	default:
 		panic(1)
 	}

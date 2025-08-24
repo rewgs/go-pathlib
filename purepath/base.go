@@ -6,8 +6,7 @@ import (
 	"strings"
 )
 
-// This forms the basis for the PurePosixPath and PureWindowsPath structs.
-//
+// Base forms the basis for the PurePosixPath and PureWindowsPath structs.
 // Any methods that are shared between both flavors are implemented via this struct, whereas
 // any methods that differ between flavors are implemented via their respective struct.
 type Base struct {

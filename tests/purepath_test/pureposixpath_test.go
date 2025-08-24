@@ -11,7 +11,7 @@ import (
 func TestPurePosixPathAnchor(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.New(testPath)
+	path, err := purepath.PurePath(testPath)
 	if err != nil {
 		t.Error(err)
 	}
@@ -30,7 +30,7 @@ func TestPurePosixPathAnchor(t *testing.T) {
 func TestPurePosixPathDrive(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.New(testPath)
+	path, err := purepath.PurePath(testPath)
 	if err != nil {
 		t.Error(err)
 	}
@@ -49,7 +49,7 @@ func TestPurePosixPathDrive(t *testing.T) {
 func TestPurePosixPathIsAbsolute(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.New(testPath)
+	path, err := purepath.PurePath(testPath)
 	if err != nil {
 		t.Error(err)
 	}
@@ -68,7 +68,7 @@ func TestPurePosixPathIsAbsolute(t *testing.T) {
 func TestPurePosixPathParent(t *testing.T) {
 	testPath := t.TempDir()
 
-	p, err := purepath.New(testPath)
+	p, err := purepath.PurePath(testPath)
 	if err != nil {
 		t.Error(err)
 	}
@@ -90,7 +90,7 @@ func TestPurePosixPathParent(t *testing.T) {
 func TestPurePosixPathRoot(t *testing.T) {
 	testPath := t.TempDir()
 
-	path, err := purepath.New(testPath)
+	path, err := purepath.PurePath(testPath)
 	if err != nil {
 		t.Error(err)
 	}

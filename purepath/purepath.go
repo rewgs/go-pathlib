@@ -41,16 +41,17 @@ type PurePath interface {
 
 // Takes any number of strings, separated by commas.
 // Returns either a PurePosixPath or PureWindowsPath, depending on `runtime.GOOS`.
-func New(pathsegments ...string) (PurePath, error) {
+func New(pathsegments ...string) PurePath {
 	switch platform {
 	case "darwin":
-		return NewPurePosixPath(pathsegments...), nil
+		return NewPurePosixPath(pathsegments...)
 	case "linux":
-		return NewPurePosixPath(pathsegments...), nil
+		return NewPurePosixPath(pathsegments...)
 	case "posix":
-		return NewPurePosixPath(pathsegments...), fmt.Errorf("Operating system not yet implemented or tested: %s\nProceed with caution.\n", platform)
+		fmt.Printf("WARNING: operating system not yet implemented or tested: %s\nProceed with caution.\n", platform)
+		return NewPurePosixPath(pathsegments...)
 	case "windows":
-		return NewPureWindowsPath(pathsegments...), nil
+		return NewPureWindowsPath(pathsegments...)
 	default:
 		panic(1)
 	}

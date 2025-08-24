@@ -1,65 +1,61 @@
 package path
 
 import (
-	"errors"
-	"io/fs"
+	"log"
 	"os"
 )
 
+// Base forms the basis for the PosixPath and WindowsPath structs.
+// Any methods that are shared between both flavors are implemented via this struct, whereas
+// any methods that differ between flavors are implemented via their respective struct.
 type Base struct {
-	Filepath string
 }
 
-func (p Base) Exists() (bool, error) {
-	fileInfo, err := os.Stat(p.Filepath)
-	if errors.Is(err, os.ErrNotExist) {
-		return false, err
-	} else if err != nil && fileInfo == nil {
-		// This is a little sloppy, but for now it's fine.
-		// TODO: Specifically handle other errors.
-		return false, err
-	}
-	return true, nil
-}
-
-func (p Base) Home() (Path, error) {
+func Home() Path {
 	home, err := os.UserHomeDir()
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 
-	path, err := New(home)
-	return path, err
+	path := New(home)
+	return path
 }
 
-func (p Base) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
-	exists, err := p.Exists()
+// NOTE: Duplicating this in posix and windows.
+//
+// func (p Base) Exists() bool {
+// 	fileInfo, err := os.Stat(p.Filepath)
+// 	if errors.Is(err, os.ErrNotExist) {
+// 		return false
+// 	} else if err != nil && fileInfo == nil {
+// 		log.Fatal(err)
+// 	}
+// 	return true
+// }
 
-	// os.ErrNotExist is okay here, so it doesn't need to be returned or dealt with.
-	if err != nil && !errors.Is(err, os.ErrNotExist) {
-		return err
-	}
-
-	if exists && !existOK {
-		return os.ErrExist
-	}
-
-	if mode == nil {
-		perm := fs.FileMode(0o777)
-		mode = &perm
-	}
-
-	if parents {
-		err := os.MkdirAll(p.Filepath, *mode)
-		if err != nil {
-			return err
-		}
-	} else {
-		err := os.Mkdir(p.Filepath, *mode)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
+// NOTE: Duplicating this in posix and windows.
+//
+// func (p Base) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
+// 	if p.Exists() && !existOK {
+// 		return os.ErrExist
+// 	}
+//
+// 	if mode == nil {
+// 		perm := fs.FileMode(0o777)
+// 		mode = &perm
+// 	}
+//
+// 	if parents {
+// 		err := os.MkdirAll(p.Filepath, *mode)
+// 		if err != nil {
+// 			return err
+// 		}
+// 	} else {
+// 		err := os.Mkdir(p.Filepath, *mode)
+// 		if err != nil {
+// 			return err
+// 		}
+// 	}
+//
+// 	return nil
+// }
