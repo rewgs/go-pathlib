@@ -20,8 +20,6 @@ type Path interface {
 	// This function normally follows symlinks; to check if a symlink exists, add the argument follow_symlinks=False
 	Exists() bool
 
-	Home() (Path, error)
-
 	// Creates a new directory at this given Path.
 	//
 	// If `mode` is nil, it is set to 0o777.
