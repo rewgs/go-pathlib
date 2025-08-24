@@ -1,23 +1,22 @@
 package purepath_test
 
 import (
+	"runtime"
 	"testing"
 
 	"github.com/rewgs/go-pathlib/purepath"
 )
 
 func TestPureWindowsPathAnchor(t *testing.T) {
-	testPath := t.TempDir()
-
-	path := purepath.New(testPath)
-
-	_, ok := path.(purepath.PureWindowsPath)
-	if !ok {
+	if runtime.GOOS != "windows" {
 		t.Skip()
 	}
 
-	anchor := path.Anchor()
-	if anchor == "" {
-		t.Errorf("TestPureWindowsPathAnchor(): Wanted: %s; got: %s\n", "C:", anchor)
+	testDir := t.TempDir()
+	testPath := purepath.NewPureWindowsPath(testDir)
+	got := testPath.Anchor()
+	want := testPath.Drive()
+	if got != "/" {
+		t.Errorf("TestPurePosixPathAnchor(): Wanted: %s; got: %s\n", want, got)
 	}
 }

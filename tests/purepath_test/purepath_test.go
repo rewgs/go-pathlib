@@ -1,27 +1,64 @@
 package purepath_test
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/rewgs/go-pathlib/purepath"
 )
 
-// Simple test creating the Path struct. Does not affect I/O beyond the use of testing T.TempDir().
-// func TestPurePath(t *testing.T) {
-// 	testPath := t.TempDir()
-//
-// 	_, err := purepath.PurePath(testPath)
-// 	if err != nil {
-// 		t.Error(err)
-// 	}
-// }
+func TestPurePath(t *testing.T) {
+	testDir := t.TempDir()
+	testPath := purepath.New(testDir)
 
+	// Type assertion
+	// https://go.dev/tour/methods/15
+	_, ok := testPath.(purepath.PurePath)
+	if !ok {
+		// t.Skip()
+		t.Error()
+	}
+}
 func TestPathIsAbsolute(t *testing.T) {
-	testPath := t.TempDir()
+	testDir := t.TempDir()
+	testPath := purepath.New(testDir)
+	if !testPath.IsAbsolute() {
+		t.Errorf("TestPathIsAbsolute(): %s is not absolute", testPath.AsString())
+	}
+}
 
-	p := purepath.New(testPath)
+func TestPurePathDrive(t *testing.T) {
+	testDir := t.TempDir()
+	testPath := purepath.New(testDir)
+	drive := testPath.Drive()
+	if drive != "" {
+		t.Errorf("TestPurePathDrive(): Wanted: %s; got: %s\n", "", drive)
+	}
+}
 
-	if !p.IsAbsolute() {
-		t.Errorf("TestPathIsAbsolute(): %s is not absolute", p.AsString())
+func TestPurePathIsAbsolute(t *testing.T) {
+	testDir := t.TempDir()
+	testPath := purepath.New(testDir)
+	isAbsolute := testPath.IsAbsolute()
+	if !isAbsolute {
+		t.Errorf("TestPurePathIsAbsolute(): Wanted: %t; got: %t\n", true, isAbsolute)
+	}
+}
+
+func TestPurePathParent(t *testing.T) {
+	testDir := t.TempDir()
+	testPath := purepath.New(testDir)
+	parentPath := purepath.New(filepath.Dir(testDir))
+	if testPath.Parent() != parentPath {
+		t.Errorf("TestPurePathParent(): Wanted: %s; got: %s\n", filepath.Dir(testDir), parentPath.AsString())
+	}
+}
+
+func TestPurePathRoot(t *testing.T) {
+	testDir := t.TempDir()
+	testPath := purepath.New(testDir)
+	root := testPath.Root()
+	if root != "/" {
+		t.Errorf("TestPurePathRoot(): Wanted: %s; got: %s\n", "/", root)
 	}
 }

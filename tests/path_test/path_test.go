@@ -6,25 +6,45 @@ import (
 	"github.com/rewgs/go-pathlib/path"
 )
 
-// Simple test creating the Path struct. Does not affect I/O  beyond utils.MakeDir().
-// func TestPath(t *testing.T) {
-// 	testPath := t.TempDir()
-//
-// 	_, err := path.New(testPath)
-// 	if err != nil {
-// 		t.Error(err)
-// 	}
-// }
-
-func TestPathAsString(t *testing.T) {
+func TestPath(t *testing.T) {
 	testPath := t.TempDir()
+	p := path.New(testPath)
 
-	path := path.New(testPath)
-
-	if path.AsString() != testPath {
-		t.Errorf("TestPathAsString: wanted: %s; got: %s\n", testPath, path.AsString())
+	// Type assertion
+	// https://go.dev/tour/methods/15
+	_, ok := p.(path.Path)
+	if !ok {
+		// t.Skip()
+		t.Error()
 	}
 }
+
+func TestPathAsString(t *testing.T) {
+	testDir := t.TempDir()
+	testPath := path.New(testDir)
+	if testPath.AsString() != testDir {
+		t.Errorf("TestPathAsString: wanted: %s; got: %s\n", testDir, testPath.AsString())
+	}
+}
+
+func TestPathExists(t *testing.T) {
+	testDir := t.TempDir()
+	testPath := path.New(testDir)
+	if !testPath.Exists() {
+		t.Errorf("TestPathExists: testPath does not exist\n")
+	}
+}
+
+// NOTE: In progress. Need to finish purepath.JoinPath().
+//
+// func TestMkdir(t *testing.T) {
+// 	testDir := t.TempDir()
+// 	testPath := path.New(testDir)
+//
+// 	err := testPath.MkDir(nil, false, false)
+// 	if err != nil {
+// 	}
+// }
 
 // func TestPathIsAbsolute(t *testing.T) {
 // 	testPath := t.TempDir()
