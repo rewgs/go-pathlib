@@ -12,7 +12,7 @@ import (
 )
 
 type PureWindowsPath struct {
-	Base
+	base
 }
 
 func NewPureWindowsPath(pathsegments ...string) PureWindowsPath {

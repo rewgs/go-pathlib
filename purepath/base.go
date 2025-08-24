@@ -6,18 +6,18 @@ import (
 	"strings"
 )
 
-// Base forms the basis for the PurePosixPath and PureWindowsPath structs.
+// base forms the basis for the PurePosixPath and PureWindowsPath structs.
 // Any methods that are shared between both flavors are implemented via this struct, whereas
 // any methods that differ between flavors are implemented via their respective struct.
-type Base struct {
+type base struct {
 	Filepath string
 }
 
-func (p Base) AsString() string {
+func (p base) AsString() string {
 	return p.Filepath
 }
 
-func (p Base) Name() string {
+func (p base) Name() string {
 	name := path.Base(p.Filepath)
 	if name == "." || name == "/" {
 		log.Fatalf("Could not get name from %s", p.Filepath)
@@ -25,7 +25,7 @@ func (p Base) Name() string {
 	return name
 }
 
-func (p Base) Stem() string {
+func (p base) Stem() string {
 	name := p.Name()
 	ext := p.Suffix()
 
@@ -36,6 +36,6 @@ func (p Base) Stem() string {
 	return before
 }
 
-func (p Base) Suffix() string {
+func (p base) Suffix() string {
 	return path.Ext(p.Filepath)
 }

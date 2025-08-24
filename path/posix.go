@@ -2,11 +2,10 @@ package path
 
 import (
 	"errors"
+	"github.com/rewgs/go-pathlib/purepath"
 	"io/fs"
 	"log"
 	"os"
-
-	"github.com/rewgs/go-pathlib/purepath"
 )
 
 type PosixPath struct {

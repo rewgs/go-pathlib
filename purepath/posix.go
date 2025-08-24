@@ -10,7 +10,7 @@ import (
 )
 
 type PurePosixPath struct {
-	Base
+	base
 }
 
 func NewPurePosixPath(pathsegments ...string) PurePosixPath {
