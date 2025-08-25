@@ -10,34 +10,28 @@ var platform string = runtime.GOOS
 
 // PurePath provides purely computational operations without I/O.
 type PurePath interface {
-	// pathlib methods:
+	// original python pathlib methods:
 	Anchor() string
 	Drive() string
+	FullMatch() bool
 	IsAbsolute() bool
+	IsRelativeTo() bool
+	IsReserved() bool
 	JoinPath(...string) PurePath
+	Match() bool
 	Name() string
 	Parent() PurePath
+	Parents() []PurePath
 	Parts() []string
+	RelativeTo() PurePath
 	Root() string
 	Stem() string
 	Suffix() string
-
-	// TODO: Impelement similar functionality: "If the original path doesn’t have a name, ValueError is raised."
-	//
-	// Return a new path with the name changed.
-	// WithName(name string) PurePath
-
-	// TODO:
-	// FullMatch() bool
-	// IsRelativeTo() bool
-	// IsReserved() bool
-	// Match() bool
-	// Parents() []PurePath
-	// RelativeTo() PurePath
-	// Suffixes() []string
-	// WithSegments() PurePath
-	// WithStem() PurePath
-	// WithSuffix() PurePath
+	Suffixes() []string
+	WithName(name string) PurePath
+	WithSegments() PurePath
+	WithStem() PurePath
+	WithSuffix() PurePath
 
 	// added to purepath for go-pathlib:
 	AsString() string

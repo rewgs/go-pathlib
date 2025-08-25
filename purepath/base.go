@@ -40,6 +40,58 @@ func (p base) Suffix() string {
 	return path.Ext(p.filepath)
 }
 
+// TODO: Impelement similar functionality: "If the original path doesn’t have a name, ValueError is raised."
 // TODO:
-// func (p base) WithName(name string) PurePath {
-// }
+func (p base) WithName(name string) PurePath {
+	panic("PurePath.WithName() not yet implemented.")
+}
+
+// TODO:
+func (p base) FullMatch() bool {
+	panic("PurePath.FullMatch() not yet implemented.")
+}
+
+// TODO:
+func (p base) IsRelativeTo() bool {
+	panic("PurePath.IsRelativeTo() not yet implemented.")
+}
+
+// TODO:
+func (p base) IsReserved() bool {
+	panic("PurePath.IsReserved() not yet implemented.")
+}
+
+// TODO:
+func (p base) Match() bool {
+	panic("PurePath.Match() not yet implemented.")
+}
+
+// TODO:
+func (p base) Parents() []PurePath {
+	panic("PurePath.Parents() not yet implemented.")
+}
+
+// TODO:
+func (p base) RelativeTo() PurePath {
+	panic("PurePath.RelativeTo() not yet implemented.")
+}
+
+// TODO:
+func (p base) Suffixes() []string {
+	panic("PurePath.Suffixes() not yet implemented.")
+}
+
+// TODO:
+func (p base) WithSegments() PurePath {
+	panic("PurePath.WithSegments() not yet implemented.")
+}
+
+// TODO:
+func (p base) WithStem() PurePath {
+	panic("PurePath.WithStem() not yet implemented.")
+}
+
+// TODO:
+func (p base) WithSuffix() PurePath {
+	panic("PurePath.WithSuffix() not yet implemented.")
+}
