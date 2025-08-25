@@ -1,4 +1,5 @@
-// purepath provides purely computation operations with I/O.
+// purepath provides purely computation operations without I/O.
+
 package purepath
 
 import (

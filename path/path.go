@@ -1,3 +1,5 @@
+// path provides "concrete paths," which inherit from PurePaths but also provide I/O operations.
+
 package path
 
 import (
