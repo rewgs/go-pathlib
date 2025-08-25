@@ -1,6 +1,6 @@
 # go-pathlib
 
-An implementation of Python's [`pathlib`](https://docs.python.org/3/library/pathlib.html#) for Go.
+Lots of programmers move from Python to Go (myself included). One of Python's best features is the excellent [`pathlib`](https://docs.python.org/3/library/pathlib.html#) module, and personally I've found it difficult to give up. Thus, `go-pathlib`: an implementation of `pathlib` for Go, intended to make Pythonistas-turned-Gophers feel a little more at home.
 
 This package is in extremely early development. Contributions are welcome!
 
@@ -8,7 +8,7 @@ This package is in extremely early development. Contributions are welcome!
 
 Like Python's `pathlib`, `go-pathlib` contains to base types: `Path` and `PurePath`.
 
-`PurePath` is the base type upon which all else rests. `PurePath`s provide purely computational operations _without I/O_.
+`PurePath` is the base type upon which all else rests. `PurePath` instances provide purely computational operations _without I/O_.
 
 `Path` types, also known as "concrete paths," contain embedded `PurePath` structs and provide I/O operations.
 
@@ -27,9 +27,14 @@ graph BT;
 
 ## Deviations from `pathlib`
 
-`Path` and `PurePath` are interfaces, so properties in `pathlib` are member functions in `go-pathlib`, e.g. `Path.name` becomes `Path.Name()`.
+In contrast to `chigopher`'s Go package [`pathlib`](https://pkg.go.dev/github.com/chigopher/pathlib), which states "it takes many cues from Python's `pathlib`, although it does not strictly adhere to its design philosophy," `go-pathlib` _does_ -- an effort has been made to keep `go-pathlib` as similar to `pathlib` as possible, even when that results in some minor code smells such as embedded structs.
 
-Some quality-of-life improvements have been added as well, such as `Path.AsString()`.
+However, some changes are inevitable; namely:
+
+- As `Path` and `PurePath` are interfaces, properties in `pathlib` are member functions in `go-pathlib`, e.g. `Path.name` becomes `Path.Name()`.
+- Obviously, capitalizations must change due to Go's export system.
+
+Additionally, some quality-of-life improvements have been added, such as `Path.AsString()` and `path.NewFromPurePath()`.
 
 <!-- NOTE: This is extremely out of date. Commenting out until I have the chance to take a look at the state of the progress. -->
 <!-- ## Parity with `pathlib` -->
@@ -37,7 +42,7 @@ Some quality-of-life improvements have been added as well, such as `Path.AsStrin
 <!-- | :------------------------------------------------------------------------------------ | :-------------------- | :---------- | -->
 <!-- | `Path.absolute()`                                                                     | `Absolute()`          | todo        | -->
 <!-- | `Path.chmod()`                                                                        | `Chmod()`             | todo        | -->
-<!-- | `Path.cwd()`                                                                          | `Cwd()`               | todo        | -->
+<!-- | `Path.cwd()`                                                                          | `path.Cwd()`               | todo        | -->
 <!-- | [`Path.exists()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.exists) | `Exists()`            | in progress | -->
 <!-- | `Path.expanduser()`                                                                   | `ExpandUser()`        | todo        | -->
 <!-- | `Path.hardlink_to()`                                                                  | `HardlinkTo()`        | todo        | -->
