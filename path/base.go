@@ -58,3 +58,10 @@ func (p base) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
 
 	return nil
 }
+
+func (p base) RmDir() {
+	err := os.RemoveAll(p.AsString())
+	if err != nil {
+		log.Fatal(err)
+	}
+}

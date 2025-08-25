@@ -35,6 +35,8 @@ type Path interface {
 	// the POSIX `mkdir -p` command).
 	MkDir(mode *fs.FileMode, parents bool, existOK bool) error
 
+	RmDir()
+
 	// TODO:
 	// Absolute() Path
 	// AsURI() Path
@@ -65,7 +67,6 @@ type Path interface {
 	// Replace(Path) Path
 	// Resolve() Path
 	// Rglob() []Path
-	// RmDir(Path) error
 	// SameFile() bool
 	// Stat() fs.FileInfo
 	// SymlinkTo() error
