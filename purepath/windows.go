@@ -24,11 +24,6 @@ func NewPureWindowsPath(pathsegments ...string) PureWindowsPath {
 		log.Fatal("Cannot create path.")
 	}
 
-	// return PureWindowsPath{
-	// 	Base{
-	// 		Filepath: strings.Join(pathsegments, windows.Separator),
-	// 	},
-	// }
 	pureWindowsPath := PureWindowsPath{}
 	pureWindowsPath.filepath = strings.Join(pathsegments, windows.Separator)
 	return pureWindowsPath
@@ -49,7 +44,7 @@ func (p PureWindowsPath) AsPosix() string {
 	return strings.ReplaceAll(p.filepath, windows.Separator, posix.Separator)
 }
 
-// A string representing the drive letter or name, if any.
+// Drive returns a string representing the drive letter or name, if any.
 func (p PureWindowsPath) Drive() string {
 	beginsWith, driveLetter := windows.GetDriveLetter(p.filepath)
 	if !beginsWith {
@@ -63,11 +58,19 @@ func (p PureWindowsPath) JoinPath(pathsegments ...string) PurePath {
 	return NewPurePosixPath(path...)
 }
 
+// IsAbsolute returns whether the path is absolute or not. A path is considered absolute if it has both a root and (if the flavour allows) a drive.
 func (p PureWindowsPath) IsAbsolute() bool {
 	if p.Drive() != "" && p.Root() != "" {
 		return true
 	}
 	return false
+}
+
+// TODO:
+//
+// IsReserved returns true if the path is considered reserved under Windows.
+func (p PureWindowsPath) IsReserved() bool {
+	panic("PureWindowsPath.IsReserved() not yet implemented.")
 }
 
 // TODO:

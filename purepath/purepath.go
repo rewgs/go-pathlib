@@ -14,25 +14,25 @@ type PurePath interface {
 	// original python pathlib methods:
 	Anchor() string
 	Drive() string
-	FullMatch() bool
+	FullMatch(pattern string, caseSensitive bool) bool
 	IsAbsolute() bool
-	IsRelativeTo() bool
+	IsRelativeTo(other string, additionalPaths *[]string) bool
 	IsReserved() bool
 	JoinPath(...string) PurePath
-	Match() bool
+	Match(pattern string, caseSensitive bool) bool
 	Name() string
 	Parent() PurePath
 	Parents() []PurePath
 	Parts() []string
-	RelativeTo() PurePath
+	RelativeTo(other string, walkUp bool, additionalPaths *[]string) PurePath
 	Root() string
 	Stem() string
 	Suffix() string
 	Suffixes() []string
 	WithName(name string) PurePath
-	WithSegments() PurePath
-	WithStem() PurePath
-	WithSuffix() PurePath
+	WithSegments(pathsegments ...string) PurePath
+	WithStem(stem string) PurePath
+	WithSuffix(suffix string) PurePath
 
 	// added to purepath for go-pathlib:
 	AsString() string

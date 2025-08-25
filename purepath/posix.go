@@ -22,11 +22,6 @@ func NewPurePosixPath(pathsegments ...string) PurePosixPath {
 		log.Fatal("Cannot create path.")
 	}
 
-	// return PurePosixPath{
-	// 	Base{
-	// 		Filepath: strings.Join(pathsegments, posix.Separator),
-	// 	},
-	// }
 	purePosixPath := PurePosixPath{}
 	purePosixPath.filepath = strings.Join(pathsegments, posix.Separator)
 	return purePosixPath
@@ -40,13 +35,19 @@ func (p PurePosixPath) Anchor() string {
 	return posix.Separator
 }
 
-// A string representing the drive letter or name, if any.
+// Drive returns the string representing the drive letter or name, if any.
 func (p PurePosixPath) Drive() string {
 	return ""
 }
 
+// IsAbsolute returns whether the path is absolute or not. A path is considered absolute if it has both a root and (if the flavour allows) a drive.
 func (p PurePosixPath) IsAbsolute() bool {
 	return p.Root() != ""
+}
+
+// IsReserved always returns False, as Posix does not implement reserved paths.
+func (p PurePosixPath) IsReserved() bool {
+	return false
 }
 
 func (p PurePosixPath) JoinPath(pathsegments ...string) PurePath {
