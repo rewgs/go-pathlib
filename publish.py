@@ -15,7 +15,6 @@ def git_tag(tag: str) -> None:
     except Exception as error:
         print("Unexpected error:")
         raise error
-    return
 
 
 def git_push(tag: str) -> None:
@@ -28,7 +27,6 @@ def git_push(tag: str) -> None:
     except Exception as error:
         print("Unexpected error:")
         raise error
-    return
 
 
 def publish(tag: str) -> None:
@@ -42,14 +40,12 @@ def publish(tag: str) -> None:
     except Exception as error:
         print("Unexpected error:")
         raise error
-    return
 
 
 def main(tag: str):
     git_tag(tag)
     git_push(tag)
     publish(tag)
-    return
 
 
 if __name__ == "__main__":
