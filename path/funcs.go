@@ -14,3 +14,11 @@ func Home() Path {
 	path := New(home)
 	return path
 }
+
+func Cwd() Path {
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return New(dir)
+}

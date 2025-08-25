@@ -22,6 +22,11 @@ type PurePath interface {
 	Stem() string
 	Suffix() string
 
+	// TODO: Impelement similar functionality: "If the original path doesn’t have a name, ValueError is raised."
+	//
+	// Return a new path with the name changed.
+	// WithName(name string) PurePath
+
 	// TODO:
 	// FullMatch() bool
 	// IsRelativeTo() bool
@@ -30,7 +35,6 @@ type PurePath interface {
 	// Parents() []PurePath
 	// RelativeTo() PurePath
 	// Suffixes() []string
-	// WithName() PurePath
 	// WithSegments() PurePath
 	// WithStem() PurePath
 	// WithSuffix() PurePath

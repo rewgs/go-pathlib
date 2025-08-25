@@ -39,3 +39,7 @@ func (p base) Stem() string {
 func (p base) Suffix() string {
 	return path.Ext(p.filepath)
 }
+
+// TODO:
+// func (p base) WithName(name string) PurePath {
+// }

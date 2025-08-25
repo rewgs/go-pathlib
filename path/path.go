@@ -41,7 +41,6 @@ type Path interface {
 	// Absolute() Path
 	// AsURI() Path
 	// Chmod() error
-	// Cwd() Path
 	// ExpandUser() Path
 	// FromURI() Path
 	// Glob() []Path
