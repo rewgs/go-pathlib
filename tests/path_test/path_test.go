@@ -35,14 +35,18 @@ func TestPathExists(t *testing.T) {
 	}
 }
 
-// NOTE: In progress. Need to finish purepath.JoinPath().
-//
+// NOTE: In progress.
+// Maybe want to try using something other than the t.TempDir() dir as the parent
+// of the new dir, as we might not have permission to make directories there.
 // func TestMkdir(t *testing.T) {
 // 	testDir := t.TempDir()
 // 	testPath := path.New(testDir)
+// 	newPurePath := testPath.JoinPath(testPath.AsString(), "some new dir")
+// 	newPath := path.NewFromPurePath(newPurePath)
 //
-// 	err := testPath.MkDir(nil, false, false)
+// 	err := newPath.MkDir(nil, false, false)
 // 	if err != nil {
+// 		t.Error(err)
 // 	}
 // }
 

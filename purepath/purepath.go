@@ -14,6 +14,7 @@ type PurePath interface {
 	Anchor() string
 	Drive() string
 	IsAbsolute() bool
+	JoinPath(...string) PurePath
 	Name() string
 	Parent() PurePath
 	Parts() []string
@@ -25,7 +26,6 @@ type PurePath interface {
 	// FullMatch() bool
 	// IsRelativeTo() bool
 	// IsReserved() bool
-	// JoinPath() PurePath
 	// Match() bool
 	// Parents() []PurePath
 	// RelativeTo() PurePath

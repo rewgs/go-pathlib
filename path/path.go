@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io/fs"
 	"runtime"
+
+	"github.com/rewgs/go-pathlib/purepath"
 )
 
 var platform string = runtime.GOOS
@@ -73,22 +75,18 @@ type Path interface {
 	// WriteBytes() error // will require a Writer
 	// WriteText() error // will require a Writer
 
-	// NOTE: I suppose these don't need to be present here since
-	// they're in PurePath, and Path has an embedded PurePath.
-	//
 	// pathlib methods:
-	// Anchor() string
-	// Drive() string
-	// IsAbsolute() bool
-	// Name() string
-	// Parent() purepath.PurePath
-	// Parts() []string
-	// Root() string
-	// Stem() string
-	// Suffix() string
-
-	// added to purepath for go-pathlib:
+	Anchor() string
 	AsString() string
+	Drive() string
+	IsAbsolute() bool
+	JoinPath(...string) purepath.PurePath
+	Name() string
+	Parent() purepath.PurePath
+	Parts() []string
+	Root() string
+	Stem() string
+	Suffix() string
 }
 
 // Takes any number of strings, separated by commas.
@@ -107,4 +105,9 @@ func New(pathsegments ...string) Path {
 	default:
 		panic(1)
 	}
+}
+
+// Added for go-pathlib
+func NewFromPurePath(pp purepath.PurePath) Path {
+	return New(pp.Parts()...)
 }
