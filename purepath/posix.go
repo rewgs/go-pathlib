@@ -9,10 +9,12 @@ import (
 	"github.com/rewgs/go-pathlib/internal/posix"
 )
 
+// PurePosixPath is the flavor of PurePath which represents non-Windows filesystem paths.
 type PurePosixPath struct {
 	base
 }
 
+// NewPurePosixPath returns a newly-instantiated PurePosixPath.
 func NewPurePosixPath(pathsegments ...string) PurePosixPath {
 	if platform == "windows" {
 		log.Panic("NewPosixPath does not support Windows")
@@ -27,7 +29,7 @@ func NewPurePosixPath(pathsegments ...string) PurePosixPath {
 	return purePosixPath
 }
 
-// The concatenation of the drive and root.
+// Anchor returns the concatenation of the drive and root.
 func (p PurePosixPath) Anchor() string {
 	if !strings.HasPrefix(p.filepath, posix.Separator) {
 		return ""
@@ -50,6 +52,7 @@ func (p PurePosixPath) IsReserved() bool {
 	return false
 }
 
+// JoinPath returns a new PurePath which each of the pathsegments combined to the path.
 func (p PurePosixPath) JoinPath(pathsegments ...string) PurePath {
 	path := slices.Concat(strings.Split(p.filepath, posix.Separator), pathsegments)
 	return NewPurePosixPath(path...)
