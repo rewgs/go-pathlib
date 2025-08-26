@@ -15,9 +15,45 @@ var platform string = runtime.GOOS
 // Path represents a concrete path and thus provides I/O operations.
 type Path interface {
 	// path methods:
+	Absolute() Path
+	AsURI() Path
+	Chmod(mode *fs.FileMode, followSymlinks bool) error
 	Exists() bool
+	ExpandUser() Path
+	FromURI() Path
+	Glob() []Path
+	Group() string
+	HardlinkTo() error
+	IsBlockDevice() bool
+	IsCharDevice() bool
+	IsDir() bool
+	IsFifo() bool
+	IsFile() bool
+	IsMount() bool
+	IsSocket() bool
+	IsSymlink() bool
+	Iterdir() error
+	Lchmod() error
+	Lstat() fs.FileInfo
 	MkDir(mode *fs.FileMode, parents bool, existOK bool) error
+	Open()
+	Owner() string
+	ReadBytes() []byte
+	ReadLink() Path
+	ReadText() string
+	Rename(p Path) Path
+	Replace(p Path) Path
+	Resolve() Path
+	Rglob() []Path
 	RmDir()
+	SameFile() bool
+	Stat() fs.FileInfo
+	SymlinkTo() error
+	Touch(mode fs.FileMode) error
+	Unlink() error
+	Walk() error
+	WriteBytes() error
+	WriteText() error
 
 	// embedded pathlib methods:
 	Anchor() string
