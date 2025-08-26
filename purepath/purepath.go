@@ -38,8 +38,8 @@ type PurePath interface {
 	AsString() string
 }
 
+// New returns either a PurePosixPath or PureWindowsPath, depending on `runtime.GOOS`.
 // Takes any number of strings, separated by commas.
-// Returns either a PurePosixPath or PureWindowsPath, depending on `runtime.GOOS`.
 func New(pathsegments ...string) PurePath {
 	switch platform {
 	case "darwin":
