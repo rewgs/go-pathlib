@@ -188,6 +188,28 @@ func (b base) IsSymlink() (bool, error) {
 	panic("Path.IsSymlink() not yet implemented.")
 }
 
+// TODO: Translate Python's concept of yield into Go.
+// TODO:
+//
+// Iterdir yields Path objects of the Path's contents, as long as Path is a directory.
+//
+// More from the original Python pathlib doc comment -- not sure how much of this will apply:
+// The children are yielded in arbitrary order, and the special entries '.' and '..' are not included.
+// If a file is removed from or added to the directory after creating the iterator,
+// it is unspecified whether a path object for that file is included.
+// If the path is not a directory or otherwise inaccessible, OSError is raised.
+func (b base) Iterdir() []Path {
+	panic("Path.Iterdir() not yet implemented.")
+}
+
+// TODO:
+//
+// Lchmod is like Path.Chmod(), but if the Path points to a symbolic link, the symbolic link’s mode is changed
+// rather than its target’s.
+func (b base) Lchmod(mode fs.FileMode) error {
+	panic("Path.Lchmod() not yet implemented.")
+}
+
 // MkDir creates a new directory at this given Path.
 // If mode is nil, it is set to 0o777.
 // If parents is true, any missing parents of this path are created as needed; they are created with
@@ -229,18 +251,6 @@ func (b base) RmDir() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-
-// TODO:
-//
-// Not sure what to return here. error for sure, what else?
-func (b base) Iterdir() error {
-	panic("Path.Iterdir() not yet implemented.")
-}
-
-// TODO:
-func (b base) Lchmod() error {
-	panic("Path.Lchmod() not yet implemented.")
-}
 
 // TODO:
 func (b base) Lstat() fs.FileInfo {

@@ -33,8 +33,8 @@ type Path interface {
 	IsMount() bool
 	IsSocket() (bool, error)
 	IsSymlink() (bool, error)
-	Iterdir() error
-	Lchmod() error
+	Iterdir() []Path
+	Lchmod(mode fs.FileMode) error
 	Lstat() fs.FileInfo
 	MkDir(mode *fs.FileMode, parents bool, existOK bool) error
 	Open()
