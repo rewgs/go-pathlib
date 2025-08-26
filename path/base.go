@@ -291,6 +291,37 @@ func (b base) RenameToString(target string) Path {
 
 // TODO:
 //
+// Replace renames this file or directory to the given target, and returns a new Path pointing to target.
+// If target points to an existing file or empty directory, it will be unconditionally replaced.
+// The target path may be absolute or relative. Relative paths are interpreted relative to the current working directory,
+// not the directory of the Path.
+func (b base) ReplaceWithPath(target Path) Path {
+	panic("Path.ReplaceWithPath() not yet implemented.")
+}
+
+// TODO:
+//
+// Replace renames this file or directory to the given target, and returns a new Path pointing to target.
+// If target points to an existing file or empty directory, it will be unconditionally replaced.
+// The target path may be absolute or relative. Relative paths are interpreted relative to the current working directory,
+// not the directory of the Path.
+func (b base) ReplaceWithString(target string) Path {
+	panic("Path.ReplaceWithString() not yet implemented.")
+}
+
+// TODO: Implement similar functionality: "If a path doesn’t exist or a symlink loop is encountered, and strict is True, OSError is raised."
+// TODO:
+//
+// Resolve makes the Path absolute, resolving any symlinks. A new Path is returned.
+// `..` components are also eliminated (this is the only method to do so).
+// If Path doesn’t exist or a symlink loop is encountered, and strict is true, OSError is raised (see TODO above).
+// If strict is false, Path is resolved as far as possible and any remainder is appended without checking whether it exists.
+func (b base) Resolve(strict bool) Path {
+	panic("Path.Resolve() not yet implemented.")
+}
+
+// TODO:
+//
 // Stat returns an fs.FileInfo containing information about this Path.
 // The result is looked up at each call to this function.
 func (b base) Stat(followSymlinks bool) fs.FileInfo {
@@ -319,16 +350,6 @@ func (b base) ReadLink() Path {
 // TODO:
 func (b base) ReadText() string {
 	panic("Path.ReadText() not yet implemented.")
-}
-
-// TODO:
-func (b base) Replace(target Path) Path {
-	panic("Path.Replace() not yet implemented.")
-}
-
-// TODO:
-func (b base) Resolve() Path {
-	panic("Path.Resolve() not yet implemented.")
 }
 
 // TODO:

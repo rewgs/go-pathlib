@@ -42,10 +42,11 @@ type Path interface {
 	ReadBytes() []byte
 	ReadLink() Path
 	ReadText() string
-	RenameToPath(target Path) Path
+	RenameToPath(target Path) Path // Python's Path.rename() split into two
 	RenameToString(target string) Path
-	Replace(target Path) Path
-	Resolve() Path
+	ReplaceWithPath(target Path) Path // Python's Path.replace() split into two
+	ReplaceWithString(target string) Path
+	Resolve(strict bool) Path
 	Rglob() []Path
 	RmDir()
 	SameFile() bool
