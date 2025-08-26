@@ -40,6 +40,13 @@ func (b base) AsURI() Path {
 }
 
 // TODO:
+//
+// Chmod changes the file mode and permissions.chmod().
+func (b base) Chmod(mode *fs.FileMode, followSymlinks bool) error {
+	panic("Path.Chmod() not yet implemented.")
+}
+
+// TODO:
 // - Utilize add `followSymlinks bool` argument.
 // - Check for permission-related errors in cases where file exists.
 //
@@ -52,6 +59,64 @@ func (b base) Exists() bool {
 		log.Fatal(err)
 	}
 	return true
+}
+
+// TODO: Impelement similar functionality: "If a home directory can’t be resolved, RuntimeError is raised."
+// TODO:
+//
+// ExpanderUser returns a new Path with expanded ~ and ~user constructs, as returned by os.UserHomeDir().
+func (b base) ExpandUser() Path {
+	panic("Path.ExpandUser() not yet implemented.")
+}
+
+// TODO:
+//
+// FromURI returns a new Path from parsing a ‘file’ URI
+func (b base) FromURI(uri string) Path {
+	panic("Path.FromURI() not yet implemented.")
+}
+
+// TODO:
+//
+// Glob globs the given relative pattern in the directory represented by this path, yielding all matching files (of any kind).
+// By default, or when the caseSensitive argument is false, this method matches paths using platform-specific casing rules:
+// typically, case-sensitive on POSIX, and case-insensitive on Windows. Set caseSensitive to true or false to override this behaviour.
+func (b base) Glob(pattern string, caseSensitive bool, recurseSymlinks bool) []Path {
+	panic("Path.Glob() not yet implemented.")
+}
+
+// TODO: Impelement similar functionality: "KeyError is raised if the file’s group identifier (GID) isn’t found in the system database."
+// TODO:
+//
+// Group returns the name of the group owning the file.
+//
+// from user.User?
+func (b base) Group(followSymlinks bool) string {
+	panic("Path.Group() not yet implemented.")
+}
+
+// TODO:
+//
+// HardlinkTo makes this Path a hard link to target file.
+func (b base) HardlinkToPath(target Path) error {
+	panic("Path.HardlinkTo() not yet implemented.")
+}
+
+// TODO:
+//
+// HardlinkTo makes this Path a hard link to target file.
+func (b base) HardlinkToString(target string) error {
+	panic("Path.HardlinkTo() not yet implemented.")
+}
+
+// TODO:
+//
+// IsBlockDevice returns true if the Path points to a block device (or a symbolic link pointing to a block device),
+// false if it points to another kind of file.
+// False is also returned if the Path doesn’t exist or is a broken symlink;
+// other errors (such as permission errors) are propagated.
+func (b base) IsBlockDevice() (bool, error) {
+	panic("Path.IsBlockDevice() not yet implemented.")
 }
 
 // MkDir creates a new directory at this given Path.
@@ -95,43 +160,6 @@ func (b base) RmDir() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-
-// TODO:
-func (b base) Chmod(mode *fs.FileMode, followSymlinks bool) error {
-	panic("Path.Chmod() not yet implemented.")
-}
-
-// TODO:
-func (b base) ExpandUser() Path {
-	panic("Path.ExpandUser() not yet implemented.")
-}
-
-// TODO:
-func (b base) FromURI() Path {
-	panic("Path.FromURI() not yet implemented.")
-}
-
-// TODO:
-func (b base) Glob() []Path {
-	panic("Path.Glob() not yet implemented.")
-}
-
-// TODO:
-//
-// from user.User?
-func (b base) Group() string {
-	panic("Path.Group() not yet implemented.")
-}
-
-// TODO:
-func (b base) HardlinkTo() error {
-	panic("Path.HardlinkTo() not yet implemented.")
-}
-
-// TODO:
-func (b base) IsBlockDevice() bool {
-	panic("Path.IsBlockDevice() not yet implemented.")
-}
 
 // TODO:
 func (b base) IsCharDevice() bool {

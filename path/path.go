@@ -20,11 +20,12 @@ type Path interface {
 	Chmod(mode *fs.FileMode, followSymlinks bool) error
 	Exists() bool
 	ExpandUser() Path
-	FromURI() Path
-	Glob() []Path
-	Group() string
-	HardlinkTo() error
-	IsBlockDevice() bool
+	FromURI(uri string) Path
+	Glob(pattern string, caseSensitive bool, recurseSymlinks bool) []Path
+	Group(followSymlinksl bool) string
+	HardlinkToPath(target Path) error
+	HardlinkToString(target string) error
+	IsBlockDevice() (bool, error)
 	IsCharDevice() bool
 	IsDir() bool
 	IsFifo() bool
@@ -88,6 +89,7 @@ func New(pathsegments ...string) Path {
 }
 
 // Added for go-pathlib
-func NewFromPurePath(pp purepath.PurePath) Path {
-	return New(pp.Parts()...)
+func NewFromPurePath(p purepath.PurePath) Path {
+	parts := p.Parts()
+	return New(parts...)
 }
