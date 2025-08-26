@@ -42,13 +42,14 @@ type Path interface {
 	ReadBytes() []byte
 	ReadLink() Path
 	ReadText() string
-	Rename(p Path) Path
-	Replace(p Path) Path
+	RenameToPath(target Path) Path
+	RenameToString(target string) Path
+	Replace(target Path) Path
 	Resolve() Path
 	Rglob() []Path
 	RmDir()
 	SameFile() bool
-	Stat() fs.FileInfo
+	Stat(followSymlinks bool) fs.FileInfo
 	SymlinkTo() error
 	Touch(mode fs.FileMode) error
 	Unlink() error

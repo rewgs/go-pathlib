@@ -210,6 +210,13 @@ func (b base) Lchmod(mode fs.FileMode) error {
 	panic("Path.Lchmod() not yet implemented.")
 }
 
+// TODO:
+//
+// Lstat is like Path.Stat(), but if the Path points to a symbolic link, returns the symbolic link’s information rather than its target’s.
+func (b base) Lstat() fs.FileInfo {
+	panic("Path.Lstat() not yet implemented.")
+}
+
 // MkDir creates a new directory at this given Path.
 // If mode is nil, it is set to 0o777.
 // If parents is true, any missing parents of this path are created as needed; they are created with
@@ -250,12 +257,33 @@ func (b base) RmDir() {
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////
+// TODO:
+//
+// Rename renames this file or directory to the given target, and returns a new Path instance pointing to target.
+// On Unix, if target exists and is a file, it will be replaced silently if the user has permission.
+// On Windows, if target exists, os.ErrExist will be raised.
+func (b base) RenameToPath(target Path) Path {
+	panic("Path.RenameToPath() not yet implemented.")
+}
 
 // TODO:
-func (b base) Lstat() fs.FileInfo {
-	panic("Path.Lstat() not yet implemented.")
+//
+// Rename renames this file or directory to the given target, and returns a new Path instance pointing to target.
+// On Unix, if target exists and is a file, it will be replaced silently if the user has permission.
+// On Windows, if target exists, os.ErrExist will be raised.
+func (b base) RenameToString(target string) Path {
+	panic("Path.RenameToString() not yet implemented.")
 }
+
+// TODO:
+//
+// Stat returns an fs.FileInfo containing information about this Path.
+// The result is looked up at each call to this function.
+func (b base) Stat(followSymlinks bool) fs.FileInfo {
+	panic("Path.Stat() not yet implemented.")
+}
+
+///////////////////////////////////////////////////////////////////////////////
 
 // TODO:
 //
@@ -287,12 +315,7 @@ func (b base) ReadText() string {
 }
 
 // TODO:
-func (b base) Rename(p Path) Path {
-	panic("Path.Rename() not yet implemented.")
-}
-
-// TODO:
-func (b base) Replace(p Path) Path {
+func (b base) Replace(target Path) Path {
 	panic("Path.Replace() not yet implemented.")
 }
 
@@ -309,11 +332,6 @@ func (b base) Rglob() []Path {
 // TODO:
 func (b base) SameFile() bool {
 	panic("Path.SameFile() not yet implemented.")
-}
-
-// TODO:
-func (b base) Stat() fs.FileInfo {
-	panic("Path.Stat() not yet implemented.")
 }
 
 // TODO:
