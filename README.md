@@ -31,8 +31,10 @@ In contrast to `chigopher`'s Go package [`pathlib`](https://pkg.go.dev/github.co
 
 However, some changes are inevitable; namely:
 
-- As `Path` and `PurePath` are interfaces, properties in `pathlib` are member functions in `go-pathlib`, e.g. `Path.name` becomes `Path.Name()`.
 - Obviously, capitalizations must change due to Go's export system.
+- As `Path` and `PurePath` are interfaces, properties in `pathlib` are now methods in `go-pathlib`, e.g. `Path.name` becomes `Path.Name()`.
+- Because Go does not support generic type parameters for methods, `Path.rename()` has been split into two methods: `Path.RenameToPath(target Path)` and `Path.RenameToString(target String)`
+- `Path.replace()` has been split into `Path.ReplaceWithPath(target Path)` and `Path.ReplaceWithString(target string)` for the same reason.
 
 Additionally, some quality-of-life improvements have been added, such as `Path.AsString()` and `path.NewFromPurePath()`.
 
