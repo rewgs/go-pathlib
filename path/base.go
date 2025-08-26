@@ -330,11 +330,19 @@ func (b base) Stat(followSymlinks bool) fs.FileInfo {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+func (b base) JoinPath(...string) Path {
+	panic("Path.JoinPath() not yet implemented.")
+}
+
 // TODO:
 //
 // Probably returns a Handler?
 func (b base) Open() {
 	panic("Path.Open() not yet implemented.")
+}
+
+func (b base) Parent() Path {
+	panic("Path.Parent() not yet implemented.")
 }
 
 // TODO:

@@ -63,9 +63,9 @@ type Path interface {
 	AsString() string
 	Drive() string
 	IsAbsolute() bool
-	JoinPath(...string) purepath.PurePath
+	JoinPath(...string) Path // NOTE: This obscures embedded PurePath.JoinPath()
 	Name() string
-	Parent() purepath.PurePath
+	Parent() Path // NOTE: This obscures embedded PurePath.Parent()
 	Parts() []string
 	Root() string
 	Stem() string
