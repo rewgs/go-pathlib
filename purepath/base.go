@@ -44,7 +44,7 @@ func (b base) Suffix() string {
 	return path.Ext(b.filepath)
 }
 
-// TODO: Impelement similar functionality: "If the original path doesn’t have a name, ValueError is raised."
+// TODO: Implement similar functionality: "If the original path doesn’t have a name, ValueError is raised."
 // TODO:
 //
 // WithName returns a new PurePath with the name changed.
@@ -110,7 +110,7 @@ func (b base) WithSegments(pathsegments ...string) PurePath {
 	return New(pathsegments...)
 }
 
-// TODO: Impelement similar functionality: "If the original path doesn’t have a name, ValueError is raised."
+// TODO: Implement similar functionality: "If the original path doesn’t have a name, ValueError is raised."
 // TODO:
 //
 // WithStem returns a new PurePath with the stem changed.

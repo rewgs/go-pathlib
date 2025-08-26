@@ -38,7 +38,7 @@ type Path interface {
 	Lstat() fs.FileInfo
 	MkDir(mode *fs.FileMode, parents bool, existOK bool) error
 	Open()
-	Owner() string
+	Owner(followSymlinks bool) string
 	ReadBytes() []byte
 	ReadLink() Path
 	ReadText() string

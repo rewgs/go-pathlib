@@ -31,7 +31,7 @@ func (b base) Absolute() Path {
 	panic("Path.Absolute() not yet implemented.")
 }
 
-// TODO: Impelement similar functionality: "ValueError is raised if the path isn’t absolute."
+// TODO: Implement similar functionality: "ValueError is raised if the path isn’t absolute."
 // TODO:
 //
 // AsURI represents the path as a ‘file’ URI.
@@ -61,7 +61,7 @@ func (b base) Exists() bool {
 	return true
 }
 
-// TODO: Impelement similar functionality: "If a home directory can’t be resolved, RuntimeError is raised."
+// TODO: Implement similar functionality: "If a home directory can’t be resolved, RuntimeError is raised."
 // TODO:
 //
 // ExpanderUser returns a new Path with expanded ~ and ~user constructs, as returned by os.UserHomeDir().
@@ -85,7 +85,7 @@ func (b base) Glob(pattern string, caseSensitive bool, recurseSymlinks bool) []P
 	panic("Path.Glob() not yet implemented.")
 }
 
-// TODO: Impelement similar functionality: "KeyError is raised if the file’s group identifier (GID) isn’t found in the system database."
+// TODO: Implement similar functionality: "KeyError is raised if the file’s group identifier (GID) isn’t found in the system database."
 // TODO:
 //
 // Group returns the name of the group owning the file.
@@ -248,6 +248,16 @@ func (b base) MkDir(mode *fs.FileMode, parents bool, existOK bool) error {
 	return nil
 }
 
+// TODO: Implement similar functionality: "KeyError is raised if the file’s user identifier (UID) isn’t found in the system database."
+// TODO:
+//
+// Owner returns the name of the user owning the file.
+//
+// from user.User?
+func (b base) Owner(followSymlinks bool) string {
+	panic("Path.Owner() not yet implemented.")
+}
+
 // RmDir removes this directory.
 // Unlike Python's Path.rmdir(), the directory does not have to be empty.
 func (b base) RmDir() {
@@ -262,6 +272,8 @@ func (b base) RmDir() {
 // Rename renames this file or directory to the given target, and returns a new Path instance pointing to target.
 // On Unix, if target exists and is a file, it will be replaced silently if the user has permission.
 // On Windows, if target exists, os.ErrExist will be raised.
+// The target path may be absolute or relative. Relative paths are interpreted relative to the current working directory,
+// not the directory of the Path object.
 func (b base) RenameToPath(target Path) Path {
 	panic("Path.RenameToPath() not yet implemented.")
 }
@@ -271,6 +283,8 @@ func (b base) RenameToPath(target Path) Path {
 // Rename renames this file or directory to the given target, and returns a new Path instance pointing to target.
 // On Unix, if target exists and is a file, it will be replaced silently if the user has permission.
 // On Windows, if target exists, os.ErrExist will be raised.
+// The target path may be absolute or relative. Relative paths are interpreted relative to the current working directory,
+// not the directory of the Path object.
 func (b base) RenameToString(target string) Path {
 	panic("Path.RenameToString() not yet implemented.")
 }
@@ -290,13 +304,6 @@ func (b base) Stat(followSymlinks bool) fs.FileInfo {
 // Probably returns a Handler?
 func (b base) Open() {
 	panic("Path.Open() not yet implemented.")
-}
-
-// TODO:
-//
-// from user.User?
-func (b base) Owner() string {
-	panic("Path.Owner() not yet implemented.")
 }
 
 // TODO:
