@@ -113,10 +113,79 @@ func (b base) HardlinkToString(target string) error {
 //
 // IsBlockDevice returns true if the Path points to a block device (or a symbolic link pointing to a block device),
 // false if it points to another kind of file.
-// False is also returned if the Path doesn’t exist or is a broken symlink;
+// Also returns false if the Path doesn’t exist or is a broken symlink;
 // other errors (such as permission errors) are propagated.
 func (b base) IsBlockDevice() (bool, error) {
 	panic("Path.IsBlockDevice() not yet implemented.")
+}
+
+// TODO:
+//
+// IsCharDevice returns true if the Path points to a character device (or a symbolic link pointing to a character device),
+// false if it points to another kind of file.
+// Also returns false if the Path doesn’t exist or is a broken symlink;
+// other errors (such as permission errors) are propagated.
+func (b base) IsCharDevice() (bool, error) {
+	panic("Path.IsCharDevice() not yet implemented.")
+}
+
+// TODO:
+//
+// IsDir returns true if the Path points to a directory, false if it points to another kind of file.
+// Also returns false if the Path doesn’t exist or is a broken symlink;
+// other errors (such as permission errors) are propagated.
+func (b base) IsDir(followSymlinks bool) (bool, error) {
+	panic("Path.IsDir() not yet implemented.")
+}
+
+// TODO:
+//
+// IsFIFO returns true if the Path points to a FIFO (or a symbolic link pointing to a FIFO),
+// false if it points to another kind of file.
+// also returns false if the Path doesn’t exist or is a broken symlink;
+// other errors (such as permission errors) are propagated.
+func (b base) IsFIFO() (bool, error) {
+	panic("Path.IsFifo() not yet implemented.")
+}
+
+// TODO:
+//
+// IsFile returns true if the Path points to a regular file, false if it points to another kind of file.
+// Also returns false if the Path doesn’t exist or is a broken symlink;
+// other errors (such as permission errors) are propagated.
+func (b base) IsFile(followSymlinks bool) (bool, error) {
+	panic("Path.IsFile() not yet implemented.")
+}
+
+// TODO:
+//
+// IsMount returns true if the Path is a mount point (a point in a file system where a different
+// file system has been mounted).
+// On POSIX, the function checks whether Path’s parent, path/.., is on a different device than path,
+// or whether path/.. and path point to the same i-node on the same device — this should detect mount
+// points for all Unix and POSIX variants.
+// On Windows, a mount point is considered to be a drive letter root (e.g. c:\), a UNC share (e.g. \\server\share),
+// or a mounted filesystem directory.
+func (b base) IsMount() bool {
+	panic("Path.IsMount() not yet implemented.")
+}
+
+// TODO:
+//
+// IsSocket returns true if the path points to a Unix socket (or a symbolic link pointing to a Unix socket),
+// false if it points to another kind of file.
+// Also returns false if the Path doesn’t exist or is a broken symlink;
+// other errors (such as permission errors) are propagated.
+func (b base) IsSocket() (bool, error) {
+	panic("Path.IsSocket() not yet implemented.")
+}
+
+// TODO:
+//
+// IsSymlinks returns true if the path points to a symbolic link, false otherwise.
+// Also returns false if the path doesn’t exist; other errors (such as permission errors) are propagated.
+func (b base) IsSymlink() (bool, error) {
+	panic("Path.IsSymlink() not yet implemented.")
 }
 
 // MkDir creates a new directory at this given Path.
@@ -160,41 +229,6 @@ func (b base) RmDir() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-
-// TODO:
-func (b base) IsCharDevice() bool {
-	panic("Path.IsCharDevice() not yet implemented.")
-}
-
-// TODO:
-func (b base) IsDir() bool {
-	panic("Path.IsDir() not yet implemented.")
-}
-
-// TODO:
-func (b base) IsFifo() bool {
-	panic("Path.IsFifo() not yet implemented.")
-}
-
-// TODO:
-func (b base) IsFile() bool {
-	panic("Path.IsFile() not yet implemented.")
-}
-
-// TODO:
-func (b base) IsMount() bool {
-	panic("Path.IsMount() not yet implemented.")
-}
-
-// TODO:
-func (b base) IsSocket() bool {
-	panic("Path.IsSocket() not yet implemented.")
-}
-
-// TODO:
-func (b base) IsSymlink() bool {
-	panic("Path.IsSymlink() not yet implemented.")
-}
 
 // TODO:
 //

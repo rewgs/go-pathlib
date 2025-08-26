@@ -22,17 +22,17 @@ type Path interface {
 	ExpandUser() Path
 	FromURI(uri string) Path
 	Glob(pattern string, caseSensitive bool, recurseSymlinks bool) []Path
-	Group(followSymlinksl bool) string
+	Group(followSymlinks bool) string
 	HardlinkToPath(target Path) error
 	HardlinkToString(target string) error
 	IsBlockDevice() (bool, error)
-	IsCharDevice() bool
-	IsDir() bool
-	IsFifo() bool
-	IsFile() bool
+	IsCharDevice() (bool, error)
+	IsDir(followSymlinks bool) (bool, error)
+	IsFIFO() (bool, error)
+	IsFile(followSymlinks bool) (bool, error)
 	IsMount() bool
-	IsSocket() bool
-	IsSymlink() bool
+	IsSocket() (bool, error)
+	IsSymlink() (bool, error)
 	Iterdir() error
 	Lchmod() error
 	Lstat() fs.FileInfo
