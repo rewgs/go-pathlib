@@ -13,6 +13,12 @@ type base struct {
 	filepath string
 }
 
+// TODO: Ensure that filepath arg is a valid path string.
+//
+// newBase returns a base with a guaranteed valid filepath field.
+// func newBase(filepath string) base {
+// }
+
 // AsString returns the Path as a string.
 func (b base) AsString() string {
 	return b.filepath
