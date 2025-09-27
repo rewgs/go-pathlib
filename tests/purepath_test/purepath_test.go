@@ -2,6 +2,7 @@ package purepath_test
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/rewgs/go-pathlib/purepath"
@@ -49,8 +50,8 @@ func TestPurePathParent(t *testing.T) {
 	testDir := t.TempDir()
 	testPath := purepath.New(testDir)
 	parentPath := purepath.New(filepath.Dir(testDir))
-	if testPath.Parent() != parentPath {
-		t.Errorf("TestPurePathParent(): Wanted: %s; got: %s\n", filepath.Dir(testDir), parentPath.AsString())
+	if testPath.Parent().AsString() != parentPath.AsString() {
+		t.Errorf("TestPurePathParent():\nWanted:\t%s\nGot:\t%s\n", strings.TrimSpace(filepath.Dir(testDir)), strings.TrimSpace(parentPath.AsString()))
 	}
 }
 
