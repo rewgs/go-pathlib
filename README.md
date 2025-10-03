@@ -2,17 +2,22 @@
 
 Lots of programmers move from Python to Go (myself included). One of Python's best features is the excellent [`pathlib`](https://docs.python.org/3/library/pathlib.html#) module, and personally I've found it difficult to give up. Thus, `go-pathlib`: an implementation of `pathlib` for Go, intended to make Pythonistas-turned-Gophers feel a little more at home.
 
-This package is in extremely early development. Contributions are welcome!
+> [!NOTE]
+> This package is in extremely early development.
+>
+> Contributions are welcome!
 
 ## Similarities to `pathlib`
 
-Like Python's `pathlib`, `go-pathlib` contains two base types: `Path` and `PurePath`.
+Like Python's `pathlib`, `go-pathlib` contains two primary types: `Path` and `PurePath`.
 
 `PurePath` is the base type upon which all else rests. `PurePath` instances provide purely computational operations _without I/O_.
 
 `Path` types, also known as "concrete paths," contain embedded `PurePath` structs and provide I/O operations.
 
-Additionally, both `PurePath` and `Path` contain OS-specific implementations: `PurePosixPath`, `PureWindowsPath`, `PosixPath`, and `WindowsPath`. Their relationships can be diagrammed as follows:
+Additionally, both `PurePath` and `Path` contain OS-specific implementations: `PurePosixPath`, `PureWindowsPath`, `PosixPath`, and `WindowsPath`.
+
+Their relationships can be diagrammed as follows:
 
 ```mermaid
 graph BT;
