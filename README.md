@@ -6,7 +6,7 @@ This package is in extremely early development. Contributions are welcome!
 
 ## Similarities to `pathlib`
 
-Like Python's `pathlib`, `go-pathlib` contains to base types: `Path` and `PurePath`.
+Like Python's `pathlib`, `go-pathlib` contains two base types: `Path` and `PurePath`.
 
 `PurePath` is the base type upon which all else rests. `PurePath` instances provide purely computational operations _without I/O_.
 
