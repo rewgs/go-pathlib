@@ -41,7 +41,10 @@ However, some changes are inevitable; namely:
 - Because Go does not support generic type parameters for methods, `Path.rename()` has been split into two methods: `Path.RenameToPath(target Path)` and `Path.RenameToString(target String)`
 - `Path.replace()` has been split into `Path.ReplaceWithPath(target Path)` and `Path.ReplaceWithString(target string)` for the same reason.
 
-Additionally, some quality-of-life improvements have been added, such as `Path.AsString()` and `path.NewFromPurePath()`.
+Additionally, some quality-of-life improvements not present in `pathlib` have been added:
+
+- `Path.AsString()`
+- `path.NewFromPurePath()`
 
 <!-- NOTE: This is extremely out of date. Commenting out until I have the chance to take a look at the state of the progress. -->
 <!-- ## Parity with `pathlib` -->
