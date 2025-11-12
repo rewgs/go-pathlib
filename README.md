@@ -1,6 +1,6 @@
 # go-pathlib
 
-Lots of programmers move from Python to Go (myself included). One of Python's best features is the excellent [`pathlib`](https://docs.python.org/3/library/pathlib.html#) module, and personally I've found it difficult to give up. Thus, `go-pathlib`: an implementation of `pathlib` for Go, intended to make Pythonistas-turned-Gophers feel a little more at home.
+A lot of programmers move from Python to Go (myself included). One of Python's best features is the excellent [`pathlib`](https://docs.python.org/3/library/pathlib.html#) module, and personally I've found it difficult to give up. Thus, **`go-pathlib`:** an implementation of `pathlib` for Go, intended to make Pythonistas-turned-Gophers feel a little more at home.
 
 > [!NOTE]
 > This package is in extremely early development.
