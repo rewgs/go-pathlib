@@ -1,6 +1,6 @@
 GOPROXY = "proxy.golang.org"
 
-# Run with `make TAG=v0.0.1-alpha.7 publish`
+# Run with (for example) `make TAG=v0.0.1-alpha.7 publish`)
 publish:
 	@echo "Publishing with tag $(TAG)"
 	git tag $(TAG)
