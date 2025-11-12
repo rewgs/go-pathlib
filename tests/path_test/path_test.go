@@ -35,6 +35,19 @@ func TestPathExists(t *testing.T) {
 	}
 }
 
+// NOTE: path.JoinPath not yet implemented.
+//
+// func TestPathNotExists(t *testing.T) {
+// 	testDir := t.TempDir()
+// 	testParent := path.New(testDir)
+// 	testPath := testParent.JoinPath("does-not-exist")
+// 	want := false
+// 	got := testPath.Exists()
+// 	if want != got {
+// 		t.Errorf("Path should not exist: %s", testPath.Name())
+// 	}
+// }
+
 // NOTE: In progress.
 // Maybe want to try using something other than the t.TempDir() dir as the parent
 // of the new dir, as we might not have permission to make directories there.
