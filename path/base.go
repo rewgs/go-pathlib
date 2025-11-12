@@ -2,6 +2,7 @@ package path
 
 import (
 	"errors"
+	"fmt"
 	"io/fs"
 	"log"
 	"os"
@@ -55,8 +56,12 @@ func (b *base) Exists() bool {
 	fileInfo, err := os.Stat(b.AsString())
 	if errors.Is(err, os.ErrNotExist) {
 		return false
-	} else if err != nil && fileInfo == nil {
+	}
+	if err != nil {
 		log.Fatal(err)
+	}
+	if fileInfo == nil {
+		log.Fatal(fmt.Errorf("Could not get info from file: %s", b.Name()))
 	}
 	return true
 }
