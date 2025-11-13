@@ -52,7 +52,7 @@ Additionally, some quality-of-life improvements not present in `pathlib` have be
 
 ### `Path`
 
-| `pathlib` function                                                                              | `go-pathlib` function                                                                        |  status  | test coverage |
+| `pathlib`                                                                                       | `go-pathlib`                                                                                 |  status  | test coverage |
 | :---------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- | :------: | :-----------: |
 | [`Path.absolute()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.absolute)       | [`Path.Absolute()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L31)          |   todo   |     todo      |
 | [`Path.chmod()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.chmod)             | [`Path.Chmod()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L46)             |   todo   |     todo      |
@@ -84,7 +84,7 @@ Additionally, some quality-of-life improvements not present in `pathlib` have be
 
 ### `PurePath`
 
-| `pathlib` function                                                                          | `go-pathlib` function          |  status  | test coverage |
+| `pathlib`                                                                                   | `go-pathlib`                   |  status  | test coverage |
 | :------------------------------------------------------------------------------------------ | :----------------------------- | :------: | :-----------: |
 | [`PurePath.anchor`](https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.anchor) | [`PurePosixPath.Anchor()`]()   | finished |   finished    |
 |                                                                                             | [`PureWindowsPath.Anchor()`]() | finished |   finished    |
