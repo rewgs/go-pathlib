@@ -39,9 +39,9 @@ However, some deviations from `pathlib` proved to be inevitable:
 - Obviously, capitalizations must change due to Go's export system.
 - As `Path` and `PurePath` are interfaces, properties in `pathlib` are now methods in `go-pathlib`, e.g. `Path.name` becomes `Path.Name()`.
 - Because Go does not support generic type parameters for methods, the following methods have been split into two:
-  - `Path.rename()` -> `Path.RenameToPath(target Path)` and `Path.RenameToString(target String)`
-  - `Path.replace()` -> `Path.ReplaceWithPath(target Path)` and `Path.ReplaceWithString(target string)`
-  - `Path.hardlink_to()` -> `Path.HardlinkToPath(target Path)` `Path.HardlinkToString(target string)`
+    - `Path.rename()` -> `Path.RenameToPath(target Path)` and `Path.RenameToString(target String)`
+    - `Path.replace()` -> `Path.ReplaceWithPath(target Path)` and `Path.ReplaceWithString(target string)`
+    - `Path.hardlink_to()` -> `Path.HardlinkToPath(target Path)` `Path.HardlinkToString(target string)`
 
 Additionally, some quality-of-life improvements not present in `pathlib` have been added:
 
@@ -50,32 +50,43 @@ Additionally, some quality-of-life improvements not present in `pathlib` have be
 
 ## Parity with `pathlib`
 
-| `pathlib` function                                                                              | `go-pathlib` function                                                                        |  status  | test coverage |
-| :---------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- | :------: | :-----------: |
-| [`Path.absolute()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.absolute)       | [`Path.Absolute()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L31)          |   todo   |     todo      |
-| [`Path.chmod()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.chmod)             | [`Path.Chmod()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L46)             |   todo   |     todo      |
-| [`Path.cwd()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.cwd)                 | [`path.Cwd()`](https://github.com/rewgs/go-pathlib/blob/main/path/funcs.go#L22)              | finished |     todo      |
-| [`Path.exists()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.exists)           | [`Path.Exists()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L55)            | finished |  in progress  |
-| [`Path.expanduser()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.expanduser)   | [`Path.ExpandUser()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L73)        |   todo   |     todo      |
-| [`Path.hardlink_to()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.hardlink_to) | [`Path.HardlinkToPath()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L106)   |   todo   |     todo      |
-|                                                                                                 | [`Path.HardlinkToString()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L113) |   todo   |     todo      |
-| [`Path.is_dir()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_dir)           | [`Path.IsDir()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L142)            |   todo   |     todo      |
-| [`Path.is_file()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_file)         | [`Path.IsFile()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L161)           |   todo   |     todo      |
-| [`Path.is_junction()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_junction) | [`Path.IsJunction()`](https://github.com/rewgs/go-pathlib/blob/main/path/windows.go#L17)     |   todo   |     todo      |
-| [`Path.is_mount()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_mount)       | [`Path.IsMount()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L174)          |   todo   |     todo      |
-| [`Path.is_symlink()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_symlink)   | [`Path.IsSymlink()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L192)        |   todo   |               |
-| [`Path.iterdir()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.iterdir)         | `Path.Iterdir()`                                                                             |   todo   |               |
-| [`Path.lchmod()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.lchmod)           | `Path.Lchmod()`                                                                              |   todo   |               |
-| [`Path.lstat()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.lstat)             | `Path.Lstat()`                                                                               |   todo   |               |
-| [`Path.mkdir()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir)             | `Path.Mkdir()`                                                                               |   todo   |               |
-| [`Path.resolve()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve)         | `Path.Resolve()`                                                                             |   todo   |               |
-| [`Path.readlink()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.readlink)       | `Path.Readlink()`                                                                            |   todo   |               |
-| [`Path.rename()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rename)           | `Path.Rename()`                                                                              |   todo   |               |
-| [`Path.replace()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.replace)         | `Path.Replace()`                                                                             |   todo   |               |
-| [`Path.samefile()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.samefile)       | `Path.Samefile()`                                                                            |   todo   |               |
-| [`Path.stat()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.samefile)           | `Path.Stat()`                                                                                |   todo   |               |
-| [`Path.symlink_to()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.symlink_to)   | `Path.SymlinkTo()`                                                                           |   todo   |               |
-| [`Path.unlink()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.unlink)           | `Path.Unlink()`                                                                              |   todo   |               |
-| [`Path.rmdir()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rmdir)             | `Path.Rmdir()`                                                                               |   todo   |               |
-| [`Path.walk()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.walk)               | `Path.Walk()`                                                                                |   todo   |               |
-| [`Path.home()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.home)               | [`path.Home()`](https://github.com/rewgs/go-pathlib/blob/main/path/funcs.go#L11)             | finished |     todo      |
+### `Path`
+
+| `pathlib` function                                                                              | `go-pathlib` function                                                                        |           status           |         test coverage          |
+| :---------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- | :------------------------: | :----------------------------: |
+| [`Path.absolute()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.absolute)       | [`Path.Absolute()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L31)          |            todo            |              todo              |
+| [`Path.chmod()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.chmod)             | [`Path.Chmod()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L46)             |            todo            |              todo              |
+| [`Path.cwd()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.cwd)                 | [`path.Cwd()`](https://github.com/rewgs/go-pathlib/blob/main/path/funcs.go#L22)              |          finished          |              todo              |
+| [`Path.exists()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.exists)           | [`Path.Exists()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L55)            | $${\color{blue}finished}$$ | $${\color{green}in progress}$$ |
+| [`Path.expanduser()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.expanduser)   | [`Path.ExpandUser()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L73)        |            todo            |              todo              |
+| [`Path.hardlink_to()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.hardlink_to) | [`Path.HardlinkToPath()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L106)   |            todo            |              todo              |
+|                                                                                                 | [`Path.HardlinkToString()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L113) |            todo            |              todo              |
+| [`Path.is_dir()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_dir)           | [`Path.IsDir()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L142)            |            todo            |              todo              |
+| [`Path.is_file()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_file)         | [`Path.IsFile()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L161)           |            todo            |              todo              |
+| [`Path.is_junction()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_junction) | [`Path.IsJunction()`](https://github.com/rewgs/go-pathlib/blob/main/path/windows.go#L17)     |            todo            |              todo              |
+| [`Path.is_mount()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_mount)       | [`Path.IsMount()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L174)          |            todo            |              todo              |
+| [`Path.is_symlink()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_symlink)   | [`Path.IsSymlink()`](https://github.com/rewgs/go-pathlib/blob/main/path/base.go#L192)        |            todo            |                                |
+| [`Path.iterdir()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.iterdir)         | `Path.Iterdir()`                                                                             |            todo            |                                |
+| [`Path.lchmod()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.lchmod)           | `Path.Lchmod()`                                                                              |            todo            |                                |
+| [`Path.lstat()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.lstat)             | `Path.Lstat()`                                                                               |            todo            |                                |
+| [`Path.mkdir()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir)             | `Path.Mkdir()`                                                                               |            todo            |                                |
+| [`Path.resolve()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve)         | `Path.Resolve()`                                                                             |            todo            |                                |
+| [`Path.readlink()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.readlink)       | `Path.Readlink()`                                                                            |            todo            |                                |
+| [`Path.rename()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rename)           | `Path.Rename()`                                                                              |            todo            |                                |
+| [`Path.replace()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.replace)         | `Path.Replace()`                                                                             |            todo            |                                |
+| [`Path.samefile()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.samefile)       | `Path.Samefile()`                                                                            |            todo            |                                |
+| [`Path.stat()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.samefile)           | `Path.Stat()`                                                                                |            todo            |                                |
+| [`Path.symlink_to()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.symlink_to)   | `Path.SymlinkTo()`                                                                           |            todo            |                                |
+| [`Path.unlink()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.unlink)           | `Path.Unlink()`                                                                              |            todo            |                                |
+| [`Path.rmdir()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rmdir)             | `Path.Rmdir()`                                                                               |            todo            |                                |
+| [`Path.walk()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.walk)               | `Path.Walk()`                                                                                |            todo            |                                |
+| [`Path.home()`](https://docs.python.org/3/library/pathlib.html#pathlib.Path.home)               | [`path.Home()`](https://github.com/rewgs/go-pathlib/blob/main/path/funcs.go#L11)             |          finished          |              todo              |
+
+### `PurePath`
+
+| `pathlib` function                                                                          | `go-pathlib` function          |  status  | test coverage |
+| :------------------------------------------------------------------------------------------ | :----------------------------- | :------: | :-----------: |
+| [`PurePath.anchor`](https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.anchor) | [`PurePosixPath.Anchor()`]()   | finished |   finished    |
+|                                                                                             | [`PureWindowsPath.Anchor()`]() | finished |   finished    |
+| [`PurePath.drive`](https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.drive)   | [`PurePosixPath.Drive()`]()    | finished |     todo      |
+|                                                                                             | [`PureWindowsPath.Drive()`]()  | finished |     todo      |
